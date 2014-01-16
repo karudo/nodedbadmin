@@ -1,0 +1,24 @@
+{
+  "name": "nodedbadmin",
+  "version": "0.0.0",
+  "description": "nodedbadmin - tool for db manipulation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karudo/nodedbadmin.git"
+  },
+  "author": "Deonis Peretyagin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karudo/nodedbadmin/issues"
+  },
+  "homepage": "https://github.com/karudo/nodedbadmin",
+  "dependencies": {
+    "rsvp": "~3.0.3",
+    "coffee-script": "~1.6.3",
+    "lodash": "~2.4.1"
+  }
+}
