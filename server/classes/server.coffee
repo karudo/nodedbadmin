@@ -1,20 +1,17 @@
-lodash = require 'lodash'
 
 BaseClass = require './baseclass'
-Promise = require './promise'
+Deferred = require './deferred'
 
 class Server extends BaseClass
-  _: lodash
+  @configure 'Server'
 
   constructor: (@config)->
-    @_initPromise()
-
-  _initPromise: ->
-    @promise = new Promise
+    @_startDefer = @Deferred()
+    @_startDefer.resolve()
 
 
-  start: ->
-    console.log @
+  start: -> @_startDefer.promise()
+
 
 
 module.exports = Server

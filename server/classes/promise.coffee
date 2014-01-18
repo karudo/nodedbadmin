@@ -1,12 +1,14 @@
-rsvp = require 'rsvp'
-
 BaseClass = require './baseclass'
 
+promiseFuncs = ['done', 'fail', 'then']
+
 class Promise extends BaseClass
-  constructor: ->
-    rsvp.configure 'instrument', on
-    rsvp.on 'rejected', -> console.log arguments, 1111
-  defer: (label)-> rsvp.defer label
-  get: (func)-> new rsvp.Promise func
+  @configure 'Promise'
+  for f in promiseFuncs
+    @::[f] = do (f)->
+      (args...)->
+        @_deferred[f] args...
+        @
+  constructor: (@_deferred)->
 
 module.exports = Promise
