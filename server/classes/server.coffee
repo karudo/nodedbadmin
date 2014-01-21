@@ -1,16 +1,18 @@
-
 BaseClass = require './baseclass'
-Deferred = require './deferred'
+promise = require 'promise'
 
 class Server extends BaseClass
   @configure 'Server'
 
   constructor: (@config)->
-    @_startDefer = @Deferred()
-    @_startDefer.resolve()
+    @_initPromise()
+    (@_startDefer = promise.defer()).resolve()
+
+  _initPromise: ->
+    #promise.configure 'instrument', on
 
 
-  start: -> @_startDefer.promise()
+  start: -> @_startDefer.promise
 
 
 

@@ -1,0 +1,3 @@
+BaseClass = require '../baseclass'
+
+#class
