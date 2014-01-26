@@ -1,3 +1,0 @@
-BaseClass = require '../baseclass'
-
-#class
