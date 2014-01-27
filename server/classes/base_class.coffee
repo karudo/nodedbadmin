@@ -7,8 +7,6 @@ promise = require 'promise'
 promise.configure 'instrument', yes
 promise.on 'rejected', (event)-> console.log 'rejected', event
 
-mixins = require 'mixins'
-console.log mixins
 
 class BaseClass extends EventEmitter
   _bc: ['BaseClass']
@@ -18,21 +16,16 @@ class BaseClass extends EventEmitter
     @::_bc.push className
   @getClassName: -> @::_bc[@::_bc.length - 1]
 
-  @mixin: (mixin)->
-    extend @::, mixin::
-    extend @, mixin
+  @getLabel: (label)-> @::_bc.join(':') + if label then "##{label}" else ''
+
+  @getPromise: (func, label)->
+    new Promise func, @getLabel(label)
 
 
   getLabel: (label)-> @_bc.join(':') + if label then "##{label}" else ''
 
-  getPromise: (a, b)->
-    if isFunction b
-      func = b
-      label = @getLabel(a)
-    else
-      func = a
-      label = @getLabel()
-    new Promise func, label
+  getPromise: (func, label)->
+    new Promise func, @getLabel(label)
 
   getResolvedPromise: (reason, label)-> Promise.resolve(reason, @getLabel(label))
   getRejectedPromise: (reason, label)-> Promise.reject(reason, @getLabel(label))

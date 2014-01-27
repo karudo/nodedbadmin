@@ -5,7 +5,5 @@ class BaseDbCollectionItem extends BaseCollectionItem
   @configure 'BaseDbCollectionItem'
 
 
-  getChildCollection: ->
-
 
 module.exports = BaseDbCollectionItem

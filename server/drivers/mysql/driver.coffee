@@ -3,13 +3,24 @@ mysql = require 'mysql'
 {denodeify} = require 'promise'
 
 MysqlConn = require './conn'
+MysqlDatabaseCollection = require './database'
+MysqlTableCollection = require './table'
 
 
 class MysqlDriver extends classes.BaseDriver
   @configure 'MysqlDriver'
+  schema:
+    databases:
+      name: 'Databases'
+      class: MysqlDatabaseCollection
+      childs:
+        tables:
+          name: 'Tables'
+          class: MysqlTableCollection
 
-  connect: ->
-    @pool = mysql.createPool @params
+  constructor: ->
+    super
+    @pool = mysql.createPool @pasture.params
     @getPoolConnection = denodeify(@pool.getConnection.bind(@pool))
 
   getConn: ->

@@ -2,10 +2,12 @@ config = require './config'
 {Server} = require './server'
 server = new Server config
 server.start().then ->
-  #console.log arguments
   server.getPasture('pas0').then (driver)->
-    driver.getChild('databases').then (db)->
-      db.query().then -> console.log arguments
+    driver.getCollection('databases:mysql/tables:mysql').then (collection)->
+      collection.query().then -> console.log arguments
+      # console.log collection
+      #collection.query().then -> console.log arguments
+
 
 #rsvp.configure('instrument', true);
 #rsvp.on 'created', -> console.log 'rfrfrf', arguments

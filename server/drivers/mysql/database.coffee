@@ -1,15 +1,20 @@
 {BaseDbCollection} = require 'classes'
+{chain} = require 'utils/_'
 
 class MysqlDatabaseCollection extends BaseDbCollection
-  @configure 'MysqlTableCollection'
+  @configure 'MysqlDatabaseCollection'
+  @getInitFunction: (pathStep, path)->
+    (conn)->
+      conn.query("use " + pathStep.query)
+  #  (conn)-> console.log 'conn', conn, pathStep, path, path.indexOf pathStep
 
-  canCache: no
 
   constuctor: ->
     super
 
-  exec_query: (conn, params)->
-    conn.query("show databases")
+  query: (params)->
+    @conn.query("show databases").then (result)->
+      result.map (arr)-> id: chain(arr).values().first().value()
 
 
 

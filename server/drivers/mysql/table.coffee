@@ -1,17 +1,11 @@
 {BaseDbCollection} = require 'classes'
 
 class MysqlTableCollection extends BaseDbCollection
-  @configure 'MysqlTableCollection',
-    connectionInit: (conn)->
-      conn.query("use")
+  @configure 'MysqlTableCollection'
 
-  canCache: no
-
-  constuctor: ->
-    super
-
-  exec_query: (conn, params)->
-    conn.query("show tables")
+  query: (params)->
+    @conn.query("show tables").then (result)->
+      result #.map (arr)-> id: chain(arr).values().first().value()
 
 
 

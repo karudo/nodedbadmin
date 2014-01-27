@@ -10,10 +10,11 @@ class MysqlConn extends classes.BaseConn
     #@query = denodeify @poolConnection.query.bind(@poolConnection)
 
   query: (sqlQuery)->
+    console.log sqlQuery
     @getPromise (resolve)=>
       @poolConnection.query sqlQuery, (err, result)=>
         throw @getError(err) if err
-        resolve result.map (arr)-> {id: arr.Database, name: arr.Database}
+        resolve result
 
 
   close: ->
