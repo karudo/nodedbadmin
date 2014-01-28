@@ -5,6 +5,7 @@ mysql = require 'mysql'
 MysqlConn = require './conn'
 MysqlDatabaseCollection = require './database'
 MysqlTableCollection = require './table'
+MysqlTableRowCollection = require './table_row'
 
 
 class MysqlDriver extends classes.BaseDriver
@@ -17,6 +18,10 @@ class MysqlDriver extends classes.BaseDriver
         tables:
           name: 'Tables'
           class: MysqlTableCollection
+          childs:
+            rows:
+              name: "Rows"
+              class: MysqlTableRowCollection
 
   constructor: ->
     super

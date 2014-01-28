@@ -1,6 +1,5 @@
 BaseClass = require './base_class'
-promise = require 'promise'
-{Promise} = promise
+
 
 class BaseDbCollection extends BaseClass
   @configure 'BaseDbCollection'
@@ -14,14 +13,13 @@ class BaseDbCollection extends BaseClass
       @pathQuery = params.pathQuery
     if params.conn
       @conn = params.conn
+    if params.path
+      @path = params.path
 
   getConn: -> @getSettledPromise(@conn, @conn)
 
   query: (params)->
     throw new Error "query must be redeclared"
-
-
-
 
 
 
