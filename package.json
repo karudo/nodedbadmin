@@ -18,8 +18,13 @@
   "homepage": "https://github.com/karudo/nodedbadmin",
   "dependencies": {
     "rsvp": "~3.0.3",
-    "coffee-script": "~1.6.3",
     "lodash": "~2.4.1",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "~2.3.3",
+    "coffee-script": "~1.7.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.13",
+    "load-grunt-config": "~0.7.0"
   }
 }

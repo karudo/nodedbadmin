@@ -9,7 +9,7 @@ class MysqlTableRowCollection extends BaseDbCollection
 
   query: (params)->
     @conn.query("select * from #{@conn.escapeId(@tableName)}").then (result)->
-      result #.map (arr)-> id: chain(arr).values().first().value()
+      result #.map (arr)-> id: chai§n(arr).values().first().value()
 
 
 

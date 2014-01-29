@@ -3,8 +3,8 @@ config = require './config'
 server = new Server config
 server.start().then ->
   server.getPasture('pas0').then (driver)->
-    driver.getCollection('databases:mysql/tables:mysql').then (collection)->
-      collection.query().then -> console.log arguments
+    driver.getCollection('databases:sergeant/tables:TestTable/rows').then (collection)->
+      collection.query().then -> console.log 's', arguments
       # console.log collection
       #collection.query().then -> console.log arguments
 
