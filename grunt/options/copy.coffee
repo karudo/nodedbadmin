@@ -9,8 +9,9 @@ module.exports =
   html:
     files: [
       expand: true
+      flatten: true
       cwd: "client/"
-      src: ["enviroment.js", "index.html"]
+      src: ["config/environment.js", "index.html"]
       dest: "public"
     ]
   vendors:

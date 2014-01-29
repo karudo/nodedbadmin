@@ -6,5 +6,4 @@
 // might do:
 //
 // window.ENV = {FEATURES: {'with-controller': true}};
-
 window.ENV = {};
