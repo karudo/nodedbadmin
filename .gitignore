@@ -14,8 +14,10 @@ results
 npm-debug.log
 /node_modules
 
-client/vendor/bower
-
 .idea/
 
 config/pastures.json
+
+/client/vendor/bower
+/public
+/tmp
