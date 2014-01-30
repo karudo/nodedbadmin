@@ -14,14 +14,17 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-ember-templates'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-copy'
-  #grunt.loadNpmTasks 'grunt-concat-sourcemap'
-  grunt.loadNpmTasks 'grunt-browserify2'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
+  #grunt.loadNpmTasks 'grunt-browserify2'
+  grunt.loadNpmTasks 'grunt-browserify'
+
+  grunt.loadTasks 'grunt/tasks'
 
   grunt.registerTask 'copyFiles', ['copy:html', 'copy:vendors']
 
   grunt.registerTask 'default', "Build (in debug mode) & test your application.", ['emberTemplates', 'buildScripts', 'copyFiles']
   grunt.registerTask 'buildTemplates', ['emberTemplates:debug']
-  grunt.registerTask 'buildScripts', ['coffee', 'browserify2', 'copy:appjs2public']
+  grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify', 'copy:appjs2public']
 
 
   grunt.initConfig(config)
