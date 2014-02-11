@@ -1,5 +1,5 @@
 BaseClass = require './base_class'
-{filter, clone} = require 'utils/_'
+{filter, clone} = require '../utils/_'
 
 class BaseCollection extends BaseClass
   @configure 'BaseCollection'

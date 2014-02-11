@@ -1,5 +1,5 @@
-{BaseDbCollection} = require 'classes'
-{chain} = require 'utils/_'
+{BaseDbCollection} = require '../../classes'
+{chain} = require '../../utils/_'
 
 class MysqlDatabaseCollection extends BaseDbCollection
   @configure 'MysqlDatabaseCollection'

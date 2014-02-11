@@ -9,6 +9,8 @@ server.start().then ->
       #collection.query().then -> console.log arguments
 
 
+
+
 #rsvp.configure('instrument', true);
 #rsvp.on 'created', -> console.log 'rfrfrf', arguments
 #rsvp.on 'rejected', -> console.log 'qwedsa', arguments

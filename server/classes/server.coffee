@@ -1,5 +1,5 @@
 {join} = require 'path'
-fs = require 'utils/fs'
+fs = require '../utils/fs'
 BaseClass = require './base_class'
 Pasture = require './pasture'
 

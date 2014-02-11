@@ -22,7 +22,7 @@ module.exports = (grunt)->
 
   grunt.registerTask 'copyFiles', ['copy:html', 'copy:vendors']
 
-  grunt.registerTask 'default', "Build (in debug mode) & test your application.", ['emberTemplates', 'buildScripts', 'copyFiles']
+  grunt.registerTask 'default', "Build (in debug mode)", ['emberTemplates', 'buildScripts', 'copyFiles']
   grunt.registerTask 'buildTemplates', ['emberTemplates:debug']
   grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify', 'copy:appjs2public']
 

@@ -1,5 +1,5 @@
 BaseClass = require './base_class'
-{isFunction, isString, clone, chain} = require 'utils/_'
+{isFunction, isString, clone, chain} = require '../utils/_'
 
 
 class BaseDriver extends BaseClass

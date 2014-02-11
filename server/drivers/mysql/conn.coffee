@@ -1,6 +1,6 @@
 mysql = require 'mysql'
-classes = require 'classes'
-{denodeify} = require 'promise'
+classes = require '../../classes'
+{denodeify} = require '../../promise'
 
 
 class MysqlConn extends classes.BaseConn

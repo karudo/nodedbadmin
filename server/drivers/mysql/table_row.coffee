@@ -1,4 +1,4 @@
-{BaseDbCollection} = require 'classes'
+{BaseDbCollection} = require '../../classes'
 
 class MysqlTableRowCollection extends BaseDbCollection
   @configure 'MysqlTableRowCollection'

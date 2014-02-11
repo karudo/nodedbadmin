@@ -1,0 +1,6 @@
+.gitignore
+.bowerrc
+Gruntfile.coffee
+tmp/
+node_modules/
+grunt/

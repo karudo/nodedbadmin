@@ -1,5 +1,5 @@
 fs = require 'fs'
-{denodeify} = require 'promise'
+{denodeify} = require '../promise'
 
 newFs = {}
 for key, value of fs

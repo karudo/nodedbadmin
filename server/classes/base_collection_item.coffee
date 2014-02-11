@@ -1,5 +1,4 @@
 BaseClass = require './base_class'
-#{isFunction} = require 'utils/_'
 
 class BaseCollectionItem extends BaseClass
   @configure 'BaseCollectionItem'

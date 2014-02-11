@@ -1,11 +1,7 @@
 {EventEmitter} = require 'events'
-{clone, isFunction, extend} = require 'utils/_'
-promise = require 'promise'
-{Promise} = promise
+{clone, isFunction, extend} = require '../utils/_'
+{Promise} = promise = require '../promise'
 
-
-promise.configure 'instrument', yes
-promise.on 'rejected', (event)-> console.log 'rejected', event
 
 
 class BaseClass extends EventEmitter
