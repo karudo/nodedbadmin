@@ -18,8 +18,10 @@ Collection = Ember.ArrayProxy.extend
 
 Collection.reopenClass
   connect: (path)->
+    @create {content: [], path, collection: @}
+  connectPromise: (path)->
     new Ember.RSVP.Promise (resolve)=>
-      resolve @create {content: [], path, collection: @}
+      resolve @connect path
 
 
 

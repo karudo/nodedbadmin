@@ -31,7 +31,7 @@ class BaseDriver extends BaseClass
 
     @getConn().then(@getFilterPipeFunc initFuncs.length, (conn)=>
       initFuncs.reduce(((prom, func)-> prom.then(func)), @getResolvedPromise(conn))
-    ).then (conn)-> new collectionParams.class {pathQuery: collectionParams.query, conn, path}
+    ).then (conn)=> new collectionParams.class {pathQuery: collectionParams.query, conn, path, driverQuery: @pasture.driverQuery}
 
 
 #x = new BaseDriver()

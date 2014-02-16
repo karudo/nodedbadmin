@@ -13,8 +13,11 @@ class MysqlDatabaseCollection extends BaseDbCollection
     super
 
   query: (params)->
-    @conn.query("show databases").then (result)->
-      result.map (arr)-> id: chain(arr).values().first().value()
+    console.log @
+    @conn.query("show databases").then (result)=>
+      result.map (arr)=>
+        id = chain(arr).values().first().value()
+        {id, name: id, defQuery: "#{@driverQuery}#databases:#{id}/tables"}
 
 
 

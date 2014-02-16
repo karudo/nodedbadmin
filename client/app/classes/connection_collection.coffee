@@ -6,7 +6,6 @@ ConnectionItem = CollectionItemClass.extend()
 
 Connection = CollectionClass.extend
   itemClass: ConnectionItem
-  isConnected: no
 
 Connection.reopenClass
   connect: ->

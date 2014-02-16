@@ -14,6 +14,8 @@ class BaseCollection extends BaseClass
 
   fromArray: (arr)->
     throw @getError('no array!') unless Array.isArray arr
+    if @mapArr
+      arr = @mapArr arr
     @_items = []
     if @itemClass
       arr = arr.map (i)=> new @itemClass i

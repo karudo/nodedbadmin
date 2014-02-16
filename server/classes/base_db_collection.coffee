@@ -15,6 +15,8 @@ class BaseDbCollection extends BaseClass
       @conn = params.conn
     if params.path
       @path = params.path
+    if params.driverQuery
+      @driverQuery = params.driverQuery
 
   getConn: -> @getSettledPromise(@conn, @conn)
 

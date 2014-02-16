@@ -1,3 +1,10 @@
 {{#if connection}}
-    connection!
+    {{#if dropDownItems}}
+        {{select-drop-down curName="select database" items=dropDownItems action="setSelectedDD"}}
+    {{/if}}
+    {{#if listItems}}
+        {{#each listItems}}
+            <div>{{name}}</div>
+        {{/each}}
+    {{/if}}
 {{/if}}

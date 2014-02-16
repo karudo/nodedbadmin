@@ -1,7 +1,7 @@
 ApplicationRoute = Ember.Route.extend
   model: ->
     Ember.RSVP.hash
-      connections: App.ConnectionCollection.connect()
+      connections: App.ConnectionCollection.connectPromise()
 
   setupController: (controller, models)->
     controller.setProperties(models)

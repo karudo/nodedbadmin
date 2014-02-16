@@ -7,6 +7,11 @@ class Pasture extends BaseCollection
   constructor: (@configPath)->
     @fromArray require join @configPath, 'pastures'
 
+  mapArr: (arr)->
+    arr.map (i)->
+      i.driverQuery = "pastures:#{i.id}"
+      i.defQuery = "#{i.driverQuery}#databases"
+      i
 
   makeId: (idx, item)-> "pasture#{idx}"
 

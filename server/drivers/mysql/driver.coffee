@@ -24,6 +24,8 @@ class MysqlDriver extends classes.BaseDriver
               name: "Rows"
               class: MysqlTableRowCollection
 
+
+
   constructor: ->
     super
     @pool = mysql.createPool @pasture.params

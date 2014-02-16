@@ -48,8 +48,7 @@ class Server extends BaseClass
   execCollectionMethod: (fullCollPath, method, params...)->
     [collProto, collPath] = fullCollPath.split '#'
     [collNS, collId] = collProto.split ':'
-    console.log collProto, collPath, collNS, collId
-    if collNS is 'pasture'
+    if collNS is 'pastures'
       @getPasture(collId).then (driver)->
         driver.getCollection(collPath).then (collection)->
           collection[method] params...
