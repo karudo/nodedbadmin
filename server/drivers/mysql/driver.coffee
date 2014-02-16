@@ -2,7 +2,6 @@ mysql = require 'mysql'
 classes = require '../../classes'
 {denodeify} = require '../../promise'
 
-console.log 555555565565656565
 
 MysqlConn = require './conn'
 MysqlDatabaseCollection = require './database'

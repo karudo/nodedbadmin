@@ -19,8 +19,8 @@ class BaseDriver extends BaseClass
 
     initFuncs = []
 
-    collectionParams = path.reduce (sc, pathStep, idx)=>
-      curCollectionParams = sc?.childs?[pathStep.name]
+    collectionParams = path.reduce (curSchema, pathStep, idx)=>
+      curCollectionParams = curSchema.childs?[pathStep.name]
       throw @getError "333" unless curCollectionParams?.class
       curCollectionParams = chain(curCollectionParams).clone().extend(query: pathStep.query).value()
       if (idx + 1 < path.length) and isFunction(iFunc = curCollectionParams.class.getInitFunction?(pathStep, path))

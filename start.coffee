@@ -1,10 +1,10 @@
 config = require './config'
 {Server} = require './server'
 server = new Server config
-server.start().then ->
-  server.getPasture('pas0').then (driver)->
-    driver.getCollection('databases:sergeant/tables:TestTable/rows').then (collection)->
-      collection.query().then -> console.log 's', arguments
+server.start()
+#  server.getPasture('pas0').then (driver)->
+#    driver.getCollection('databases:sergeant/tables:TestTable/rows').then (collection)->
+#      collection.query().then -> console.log 's', arguments
       # console.log collection
       #collection.query().then -> console.log arguments
 

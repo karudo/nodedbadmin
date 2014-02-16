@@ -29,8 +29,7 @@ class BaseCollection extends BaseClass
     item.id = @makeId(i - 1, item) unless item.id
 
   query: (params = {})->
-    params.query or= {}
-    @getResolvedPromise(clone(filter(@_items, params.query)), 'query')
+    @getResolvedPromise(clone(if params.query then filter(@_items, params.query) else @_items), 'query')
 
   getById: (id)->
     @query({query: {id}, top: 1}).then (arr)=>

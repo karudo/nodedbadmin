@@ -2,7 +2,7 @@ path = require 'path'
 _s = require 'underscore.string'
 module.exports = (grunt)->
   grunt.registerMultiTask 'createIndex', 'Create index task', ->
-    destFileSrc = "module.exports =\n"
+    destFileSrc = "#file created by script\nmodule.exports =\n"
     for filePath in @filesSrc
       fileName = path.basename(filePath, '.coffee')
       continue if fileName is 'index'

@@ -1,5 +1,5 @@
 module.exports = main:
   cwd: "./client/app"
-  src: ['controllers'].map (d)-> "./#{d}/*"
+  src: ['controllers', 'components', 'routes', 'classes'].map (d)-> "./#{d}/*"
   dest: "./require.coffee"
 

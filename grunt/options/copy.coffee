@@ -16,9 +16,18 @@ module.exports =
     ]
   vendors:
     files: [
-      expand: yes
-      flatten: yes
-      cwd: "client/vendor/bower"
-      src: ["ember/ember.js", "jquery/jquery.js", "handlebars/handlebars.js", "lodash/dist/lodash.js"]
-      dest: "public"
+      {
+        expand: yes
+        flatten: yes
+        cwd: "client/vendor/bower"
+        src: ["ember/ember.js", "jquery/jquery.js", "handlebars/handlebars.js", "lodash/dist/lodash.js"]
+        dest: "public"
+      }
+      {
+        expand: yes
+        #flatten: yes
+        cwd: "client/vendor/bower/bootstrap/dist"
+        src: ["**/*"]
+        dest: "public/bootstrap"
+      }
     ]

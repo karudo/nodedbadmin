@@ -2,13 +2,18 @@
 fs = require '../utils/fs'
 BaseClass = require './base_class'
 Pasture = require './pasture'
+Client = require './client'
+{Socket} = require '../webserver'
 
 class Server extends BaseClass
   @configure 'Server'
 
   constructor: (@config)->
     @_drivers = {}
-    @_connected_drivers = {}
+    @_connectedDrivers = {}
+    @_clients = new Set()
+    @_collections = {}
+
 
 
   loadDrivers: ->
@@ -17,11 +22,22 @@ class Server extends BaseClass
         @_drivers[d] = require join '../drivers', d
       @_drivers
 
+
   loadPastures: ->
-    @getPromise (res)=> res @_pastures = new Pasture @config.configPath
+    @getPromise (res)=> res @_collections.pastures = new Pasture @config.configPath
+
+
+  initSocket: ->
+    Socket.onUserConnect (socket)=>
+      socket.on 'message', -> console.log 333333, arguments
+      cl = new Client socket, @
+      @_clients.add cl
+      cl.on 'disconnect', => cl.close()
+
 
   start: ->
     unless @_startPromise
+      @initSocket()
       @_startPromise = @getResolvedPromise()
       .then(=> @loadDrivers())
       .then(=> @loadPastures())
@@ -29,22 +45,41 @@ class Server extends BaseClass
 
 
 
-  execCollectionMethod: (collPath, method, params)->
+  execCollectionMethod: (fullCollPath, method, params...)->
+    [collProto, collPath] = fullCollPath.split '#'
+    [collNS, collId] = collProto.split ':'
+    console.log collProto, collPath, collNS, collId
+    if collNS is 'pasture'
+      @getPasture(collId).then (driver)->
+        driver.getCollection(collPath).then (collection)->
+          collection[method] params...
+    else if collNS is 'system' and @_collections[collId]
+      @_collections[collId][method] params...
+    else
+      @getRejectedPromise("ERROR execCollectionMethod(#{fullCollPath}, #{method})")
 
 
   getPasture: (id)->
     @start().then =>
-      @_pastures.getById(id).then (pasture)=>
-        unless @_connected_drivers[pasture.id]
+      @_collections.pastures.getById(id).then (pasture)=>
+        unless @_connectedDrivers[pasture.id]
           driver = @_drivers[pasture.driver]
           throw @getError("no driver for pasture.driver='#{pasture.driver}'") unless driver
-          @_connected_drivers[pasture.id] = new driver.class pasture
-          #@_connected_drivers[pasture.id].on 'close', =>
-          #  @_connected_drivers[pasture.id].removeAllListeners()
-          #  delete @_connected_drivers[pasture.id]
+          @_connectedDrivers[pasture.id] = new driver.class pasture
+          #@_connectedDrivers[pasture.id].on 'close', =>
+          #  @_connectedDrivers[pasture.id].removeAllListeners()
+          #  delete @_connectedDrivers[pasture.id]
 
-        @_connected_drivers[pasture.id]
+        @_connectedDrivers[pasture.id]
 
+###
+@socket.on 'querycollection', (collPath, params, cb)->
+  @getPasture('pas0').then (driver)->
+    driver.getCollection(collPath).then (collection)->
+      prom = collection.query(params)
+      cb prom._id
+      @promiseManager.add(prom)
+###
 
 
 

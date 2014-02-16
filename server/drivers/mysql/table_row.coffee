@@ -5,7 +5,7 @@ class MysqlTableRowCollection extends BaseDbCollection
 
   constructor: ->
     super
-    @tableName =  @path[-2...-1][0].query
+    @tableName = @path[-2...-1][0].query
 
   query: (params)->
     @conn.query("select * from #{@conn.escapeId(@tableName)}").then (result)->

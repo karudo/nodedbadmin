@@ -7,7 +7,6 @@ module.exports = (grunt)->
     loadGruntTasks: false
     init: false
   ))
-  console.log config
 
   config.env = process.env
 
@@ -17,6 +16,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   #grunt.loadNpmTasks 'grunt-browserify2'
   grunt.loadNpmTasks 'grunt-browserify'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
 
   grunt.loadTasks 'grunt/tasks'
 

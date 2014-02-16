@@ -1,0 +1,7 @@
+<a href="#" class="dropdown-toggle" {{action "toggleMenu"}}>{{curName}} <b class="caret"></b></a>
+<ul class="dropdown-menu">
+    {{#each items}}
+        <li><a href="#" {{action "selectItem" this}}>{{name}}</a></li>
+    {{/each}}
+    {{yield}}
+</ul>
