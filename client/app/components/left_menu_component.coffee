@@ -1,6 +1,4 @@
 LeftMenuComponent = Ember.Component.extend
-  #init: ->
-  #  @_super()
 
   connectionChanged: (->
     defQuery = @get 'connection.defQuery'
@@ -11,7 +9,6 @@ LeftMenuComponent = Ember.Component.extend
   actions:
     setSelectedDD: (item)->
       if item.defQuery
-        console.log item.defQuery
         @set 'listItems', App.CollectionClass.connect(item.defQuery)
 
 module.exports = LeftMenuComponent

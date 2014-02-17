@@ -11,6 +11,7 @@ socket.on "connect", ->
 
 connPromise.then ->
   socket.on "collection:exec:method", (id, error, result)->
+    #console.log "qqqq #{error}, #{result}"
     if IDS[id]
       if error
         IDS[id].reject error
@@ -21,8 +22,11 @@ connPromise.then ->
 
 execCollectionMethod = (fullCollPath, method, params...)->
   defer = Em.RSVP.defer()
+  #console.log "execCollectionMethod (#{fullCollPath}, #{method})"
   connPromise.then ->
+    #console.log 'connPromise.then'
     socket.emit "collection:exec:method", fullCollPath, method, params, (id)->
+      #console.log 'promise id', id
       if id
         IDS[id] = defer
       else

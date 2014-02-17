@@ -14,7 +14,7 @@ class MysqlConn extends classes.BaseConn
     console.log sqlQuery
     @getPromise (resolve)=>
       @poolConnection.query sqlQuery, (err, result, s)=>
-        console.log '3param', s
+        #console.log '3param', s
         throw @getError(err) if err
         resolve result
 

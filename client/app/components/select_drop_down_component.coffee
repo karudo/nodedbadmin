@@ -1,15 +1,23 @@
 SelectDropDownComponent = Ember.Component.extend
   classNames: ['dropdown']
   classNameBindings: ['isOpen:open']
+  handlerTagName: 'a'
+  #handlerClasses: ['dropdown-toggle']
+  handlerClassesComputed: (->
+    classes = ['dropdown-toggle']
+    if @get 'handlerClasses'
+      classes = classes.concat @get('handlerClasses').split(' ')
+    classes
+  ).property 'handlerClasses'
   isOpen: no
   curName: 'select'
   actions:
     toggleMenu: ->
       @toggleProperty 'isOpen'
-    selectItem: (pasture)->
-      @sendAction 'action', pasture
+    selectItem: (item)->
+      @sendAction 'action', item
       @setProperties
-        curName: pasture.name
+        curName: item.name
         isOpen: no
 
 module.exports = SelectDropDownComponent

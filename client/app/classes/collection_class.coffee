@@ -7,18 +7,23 @@ Collection = Ember.ArrayProxy.extend
 
   init: ->
     @_super()
-    if @get 'autoload'
-      @_load()
+    @_load() if @get 'autoload'
+
 
   _load: ->
+    console.log 'before _load', @path
     App.server.execCollectionMethod(@path, 'query').then (items)=>
+      console.log 'after _load', @path
       itemClass = @get 'itemClass'
-      @setObjects items.map (i)-> itemClass.create i
+      @setObjects items.map (i)=>
+        obj = itemClass.create i
+        obj.set 'collection', @
+        obj
 
 
 Collection.reopenClass
   connect: (path)->
-    @create {content: [], path, collection: @}
+    @create {content: [], path}
   connectPromise: (path)->
     new Ember.RSVP.Promise (resolve)=>
       resolve @connect path

@@ -5,7 +5,7 @@ module.exports =
 
   debug:
     options:
-      precompile: false
+      precompile: yes
 
     src: "client/app/**/*.{hbs,hjs,handlebars}"
     dest: "public/templates.js"

@@ -9,6 +9,7 @@ class Server extends BaseClass
   @configure 'Server'
 
   constructor: (@config)->
+    @_ecm_count = 0
     @_drivers = {}
     @_connectedDrivers = {}
     @_clients = new Set()
@@ -46,11 +47,17 @@ class Server extends BaseClass
 
 
   execCollectionMethod: (fullCollPath, method, params...)->
+    c = @_ecm_count++
+    nc = 'n'+c+': '
     [collProto, collPath] = fullCollPath.split '#'
     [collNS, collId] = collProto.split ':'
+    console.log "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", collProto, collPath, collNS, collId
     if collNS is 'pastures'
+      console.log "#{nc} collNS is ok"
       @getPasture(collId).then (driver)->
+        console.log "#{nc} @getPasture #{collId} ok"
         driver.getCollection(collPath).then (collection)->
+          console.log "#{nc} driver.getCollection #{collPath} ok"
           collection[method] params...
     else if collNS is 'system' and @_collections[collId]
       @_collections[collId][method] params...

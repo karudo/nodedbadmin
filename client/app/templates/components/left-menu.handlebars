@@ -1,6 +1,6 @@
 {{#if connection}}
     {{#if dropDownItems}}
-        {{select-drop-down curName="select database" items=dropDownItems action="setSelectedDD"}}
+        {{select-drop-down curName="select database" handlerTagName="button" handlerClasses="btn btn-primary" items=dropDownItems action="setSelectedDD"}}
     {{/if}}
     {{#if listItems}}
         {{#each listItems}}

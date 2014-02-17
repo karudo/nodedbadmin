@@ -1,4 +1,6 @@
-<a href="#" class="dropdown-toggle" {{action "toggleMenu"}}>{{curName}} <b class="caret"></b></a>
+{{#custom-tag tagName=handlerTagName classes=handlerClassesComputed action="toggleMenu"}}
+    {{curName}} <b class="caret"></b>
+{{/custom-tag}}
 <ul class="dropdown-menu">
     {{#each items}}
         <li><a href="#" {{action "selectItem" this}}>{{name}}</a></li>
