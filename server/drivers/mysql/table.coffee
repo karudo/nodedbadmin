@@ -1,14 +1,14 @@
-{BaseDbCollection} = require '../../classes'
-{chain} = require '../../utils/_'
+MysqlCollection = require './mysql_collection'
+{chain} = nodedbadmin.utils._
 
-class MysqlTableCollection extends BaseDbCollection
+class MysqlTableCollection extends MysqlCollection
   @configure 'MysqlTableCollection'
 
   query: (params)->
-    @conn.query("show tables").then (result)->
-      result.map (arr)->
+    @_query("show tables").then ([result])=>
+      result.map (arr)=>
         id = chain(arr).values().first().value()
-        {id, name: id}
+        {id, name: id, defQuery: @getPathStr(id, 'rows')}
 
 
 

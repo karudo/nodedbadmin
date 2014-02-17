@@ -1,8 +1,14 @@
 config = require './config'
 {Server} = require './server'
 server = new Server config
-server.start()
-#  server.getPasture('pas0').then (driver)->
+server.start().then ->
+  #server.execCollectionMethod('pastures:pas0#databases:sergeant/tables:Periods/rows', 'query', []).then (a)-> console.log 77777, a
+  ###
+  server.getPasture('pas0').then (driver)->
+    driver.getCollection('databases').then (coll)->
+      console.log 1111, coll.getClassName()
+      coll.query().then -> console.log 2222, arguments
+  ###
 #    driver.getCollection('databases:sergeant/tables:TestTable/rows').then (collection)->
 #      collection.query().then -> console.log 's', arguments
       # console.log collection

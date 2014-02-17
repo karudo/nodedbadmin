@@ -4,21 +4,10 @@ BaseClass = require './base_class'
 class BaseDbCollection extends BaseClass
   @configure 'BaseDbCollection'
 
-  #@getInitFunction: (pathStep, path)->
-  #  (conn)-> console.log 'conn', conn, pathStep, path, path.indexOf pathStep
+  constructor: (@driver, @path)->
 
-
-  constructor: (params)->
-    if params.pathQuery
-      @pathQuery = params.pathQuery
-    if params.conn
-      @conn = params.conn
-    if params.path
-      @path = params.path
-    if params.driverQuery
-      @driverQuery = params.driverQuery
-
-  getConn: -> @getSettledPromise(@conn, @conn)
+  getPathStr: (curId, defColl)->
+    "#{@driver.pathStr}#" + @path.map(({name, query})-> "#{name}:#{if query then query else curId}").join('/') + "/#{defColl}"
 
   query: (params)->
     throw new Error "query must be redeclared"

@@ -8,30 +8,33 @@ class BaseDriver extends BaseClass
   schema: null
 
   constructor: (@pasture)->
+    @pathStr = "pastures:#{@pasture.id}"
+    @_collections = {}
 
-  getConn: ->
-    @getRejectedPromise @getError('getConn must be implemented')
+  getSchema: -> throw @getError('redeclare!')
 
 
-  getCollection: (path)->
-    if isString path
-      path = path.split('/').map (v)=> ([name,query] = v.split(':')) and {name, query}
 
-    initFuncs = []
+  getCollection: (pathStr)->
+    unless @_collections[pathStr]
+      pathArr = pathStr.split('/').map (v)=> ([name,query] = v.split(':')) and {name, query}
 
-    collectionParams = path.reduce (curSchema, pathStep, idx)=>
-      curCollectionParams = curSchema.childs?[pathStep.name]
-      throw @getError "333" unless curCollectionParams?.class
-      curCollectionParams = chain(curCollectionParams).clone().extend(query: pathStep.query).value()
-      if (idx + 1 < path.length) and isFunction(iFunc = curCollectionParams.class.getInitFunction?(pathStep, path))
-        initFuncs.push do(iFunc)=>
-          (conn)=> @getResolvedPromise().then(-> iFunc(conn)).then -> conn
-      curCollectionParams
-    , childs: @schema
+      initFuncs = []
 
-    @getConn().then(@getFilterPipeFunc initFuncs.length, (conn)=>
-      initFuncs.reduce(((prom, func)-> prom.then(func)), @getResolvedPromise(conn))
-    ).then (conn)=> new collectionParams.class {pathQuery: collectionParams.query, conn, path, driverQuery: @pasture.driverQuery}
+      collectionParams = pathArr.reduce (curSchema, pathStep, idx)=>
+        curCollectionParams = curSchema.childs?[pathStep.name]
+        throw @getError "333" unless curCollectionParams?.class
+        #curCollectionParams = chain(curCollectionParams).clone().extend(query: pathStep.query).value()
+        if (idx + 1 < pathArr.length) and isFunction(iFunc = curCollectionParams.class.getInitFunction?(pathStep))
+          initFuncs.push iFunc
+        curCollectionParams
+      , childs: @getSchema()
+
+      coll = new collectionParams.class @, pathArr
+      coll.initFuncs = initFuncs if initFuncs.length
+      @_collections[pathStr] = coll
+
+    @getResolvedPromise @_collections[pathStr]
 
 
 #x = new BaseDriver()

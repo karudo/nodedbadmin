@@ -8,7 +8,7 @@ class Client extends BaseClass
 
   constructor: (@socket, @server)->
     super
-    console.log @socket
+    #console.log @socket
     @_id = "socket##{@socket.id}"
     @socket.on 'collection:exec:method', (fullCollPath, method, params, cb)=>
       promise = @server.execCollectionMethod fullCollPath, method, params...

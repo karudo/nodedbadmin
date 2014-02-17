@@ -1,6 +1,6 @@
-{BaseDbCollection} = require '../../classes'
+MysqlCollection = require './mysql_collection'
 
-class MysqlTableRowCollection extends BaseDbCollection
+class MysqlTableRowCollection extends MysqlCollection
   @configure 'MysqlTableRowCollection'
 
   constructor: ->
@@ -8,9 +8,7 @@ class MysqlTableRowCollection extends BaseDbCollection
     @tableName = @path[-2...-1][0].query
 
   query: (params)->
-    @conn.query("select * from #{@conn.escapeId(@tableName)}").then (result)->
-      result #.map (arr)-> id: chai§n(arr).values().first().value()
-
-
+    sql = "select * from #{@escapeId(@tableName)}"
+    @_query(sql).then ([result])=> result
 
 module.exports = MysqlTableRowCollection

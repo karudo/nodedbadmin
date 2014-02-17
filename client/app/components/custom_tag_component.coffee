@@ -7,7 +7,6 @@ CustomTagComponent = Ember.Component.extend
     classNames = @get 'classNames'
     if classes and classNames
       @set 'classNames', classNames.concat classes
-      console.log classes, @get 'classNames'
   click: ->
     @sendAction()
 

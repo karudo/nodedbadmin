@@ -12,11 +12,13 @@ class BaseClass extends EventEmitter
     @::_bc.push className
   @getClassName: -> @::_bc[@::_bc.length - 1]
 
-  @getLabel: (label)-> @::_bc.join(':') + if label then "##{label}" else ''
+  @getLabel: (label)-> "static%" + @::_bc.join(':') + if label then "##{label}" else ''
 
   @getPromise: (func, label)->
     new Promise func, @getLabel(label)
 
+
+  getClassName: -> @_bc[@_bc.length - 1]
 
   getLabel: (label)-> @_bc.join(':') + if label then "##{label}" else ''
 

@@ -36,10 +36,17 @@ class Server extends BaseClass
       cl.on 'disconnect', => cl.close()
 
 
+  registerGlobals: ->
+    @getResolvedPromise().then =>
+      GlobalObject = require './global_object'
+      global['nodedbadmin'] = new GlobalObject
+
+
   start: ->
     unless @_startPromise
       @initSocket()
       @_startPromise = @getResolvedPromise()
+      .then(=> @registerGlobals())
       .then(=> @loadDrivers())
       .then(=> @loadPastures())
     @_startPromise
@@ -48,7 +55,7 @@ class Server extends BaseClass
 
   execCollectionMethod: (fullCollPath, method, params...)->
     c = @_ecm_count++
-    nc = 'n'+c+': '
+    nc = "n#{c}: "
     [collProto, collPath] = fullCollPath.split '#'
     [collNS, collId] = collProto.split ':'
     console.log "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", collProto, collPath, collNS, collId

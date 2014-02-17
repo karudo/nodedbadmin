@@ -2,7 +2,6 @@ CollectionItem = require './collection_item_class'
 
 Collection = Ember.ArrayProxy.extend
   itemClass: CollectionItem
-  limitRecords: 100
   autoload: yes
 
   init: ->
