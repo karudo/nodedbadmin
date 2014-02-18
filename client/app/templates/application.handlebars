@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                {{#select-drop-down tagName="li" curName="select connection" items=connections action="setSelectedConnection"}}
+                {{#select-drop-down tagName="li" curName="select connection" items=connections action="connectionSelectorChanged"}}
                     <!--li class="divider"></li>
                     <li><a href="#">Edit connections</a></li-->
                 {{/select-drop-down}}
+                {{#if selectedConnection}}
+                    {{select-drop-down tagName="li" curName="select database" items=secondDropDownItems action="secondDropDownItemsSelectorChanged"}}
+                {{/if}}
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
@@ -16,7 +16,7 @@
 <div class="container-fluid" style="margin-top: 50px;">
     <div class="row">
         <div class="col-md-1">
-            {{left-menu connection=selectedConnection}}
+            {{left-menu items=leftMenuItems}}
         </div>
         <div class="col-md-11">{{outlet}}</div>
     </div>

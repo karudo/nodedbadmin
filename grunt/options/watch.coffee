@@ -6,3 +6,7 @@ module.exports =
   scripts:
     files: ['client/app/**/*.{js,coffee}']
     tasks: ['buildScripts']
+
+  static:
+    files: ['client/*.{css,html}']
+    tasks: ['copy:html']

@@ -1,10 +1,7 @@
-{{#if connection}}
-    {{#if dropDownItems}}
-        {{select-drop-down curName="select database" handlerTagName="button" handlerClasses="btn btn-primary" items=dropDownItems action="setSelectedDD"}}
-    {{/if}}
-    {{#if listItems}}
-        {{#each listItems}}
-            <div>{{name}}</div>
-        {{/each}}
-    {{/if}}
+{{#if items}}
+    <div class="list-group">
+    {{#each items}}
+        <a href="" class="list-group-item">{{name}}</a>
+    {{/each}}
+    </div>
 {{/if}}

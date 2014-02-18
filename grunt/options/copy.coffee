@@ -11,7 +11,7 @@ module.exports =
       expand: yes
       flatten: yes
       cwd: "client/"
-      src: ["config/environment.js", "index.html"]
+      src: ["index.html", "style.css"]
       dest: "public"
     ]
   vendors:
