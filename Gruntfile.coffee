@@ -24,7 +24,8 @@ module.exports = (grunt)->
 
   grunt.registerTask 'default', "Build (in debug mode)", ['emberTemplates', 'buildScripts', 'copyFiles']
   grunt.registerTask 'buildTemplates', ['emberTemplates:debug']
-  grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify', 'copy:appjs2public']
+  grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify']
+  grunt.registerTask 'develop', ['default', 'watch']
 
 
   grunt.initConfig(config)

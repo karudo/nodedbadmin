@@ -1,4 +1,5 @@
 module.exports =
+  ###
   appjs2public:
     files: [
       expand: yes
@@ -6,12 +7,13 @@ module.exports =
       src: ["app.js"]
       dest: "public"
     ]
+  ###
   html:
     files: [
       expand: yes
       flatten: yes
       cwd: "client/"
-      src: ["index.html", "style.css"]
+      src: ["index.html", "style.css", "config/environment.js"]
       dest: "public"
     ]
   vendors:
@@ -21,6 +23,12 @@ module.exports =
         flatten: yes
         cwd: "client/vendor/bower"
         src: ["ember/ember.js", "jquery/jquery.js", "handlebars/handlebars.js", "lodash/dist/lodash.js"]
+        dest: "public"
+      }
+      {
+        expand: yes
+        cwd: "client/vendor"
+        src: "ember140queryparams.js"
         dest: "public"
       }
       {

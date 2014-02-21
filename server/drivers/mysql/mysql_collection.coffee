@@ -7,7 +7,13 @@ class MysqlCollection extends BaseDbCollection
 
 
   connect: ->
-    @pool = mysql.createPool(@driver.pasture.params) unless @pool
+    unless @pool
+      @pool = mysql.createPool(@driver.pasture.params)
+      @pool.getConnectionPromise = denodeify(@pool.getConnection, @pool)
+    @pool.getConnectionPromise().then (conn)->
+      conn.queryPromise = denodeify(conn.query, conn)
+      conn
+    ###
     @getPromise (resolve, reject)=>
       @pool.getConnection (err, conn)->
         if err
@@ -15,6 +21,7 @@ class MysqlCollection extends BaseDbCollection
         else
           conn.queryPromise = denodeify(conn.query, conn)
           resolve conn
+    ###
 
   escapeId: (id)-> mysql.escapeId(id)
   _query: (query, autorelease = yes)->

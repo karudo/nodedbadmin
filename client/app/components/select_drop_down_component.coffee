@@ -3,7 +3,7 @@ SelectDropDownComponent = Ember.Component.extend
   classNameBindings: ['isOpen:open']
   handlerTagName: 'a'
   handlerClassesComputed: (->
-    classes = ['dropdown-toggle']
+    classes = ['dropdown-toggle', 'pointer']
     if @get 'handlerClasses'
       classes = classes.concat @get('handlerClasses').split(' ')
     classes
@@ -14,10 +14,12 @@ SelectDropDownComponent = Ember.Component.extend
   actions:
     toggleMenu: ->
       @toggleProperty 'isOpen'
+      no
     selectItem: (item)->
       @sendAction 'action', item
       @setProperties
         curName: item.name
         isOpen: no
+      no
 
 module.exports = SelectDropDownComponent

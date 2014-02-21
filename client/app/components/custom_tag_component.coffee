@@ -1,6 +1,4 @@
 CustomTagComponent = Ember.Component.extend
-  attributeBindings: ['href']
-  href: '#'
   init: ->
     @_super()
     classes = @get 'controller.classes'

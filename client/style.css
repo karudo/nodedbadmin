@@ -5,3 +5,6 @@
 .left-menu .list-group-item:hover {
     overflow-x: visible;
 }
+.pointer {
+    cursor: pointer;
+}

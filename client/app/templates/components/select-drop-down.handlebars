@@ -1,9 +1,9 @@
-{{#custom-tag tagName=handlerTagName classes=handlerClassesComputed action="toggleMenu"}}
+{{#custom-tag tagName=handlerTagName classes=handlerClassesComputed action="toggleMenu" bubbles=false}}
     {{curName}} <b class="caret"></b>
 {{/custom-tag}}
 <ul class="dropdown-menu">
     {{#each items}}
-        <li><a href="#" {{action "selectItem" this}}>{{name}}</a></li>
+        <li><a {{action "selectItem" this}} class="pointer">{{name}}</a></li>
     {{/each}}
     {{yield}}
 </ul>
