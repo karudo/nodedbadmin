@@ -1,4 +1,7 @@
 SelectDropDownComponent = Ember.Component.extend
+  #init: ->
+  #  console.log 'aaaa', @get 'selectedId'
+
   classNames: ['dropdown']
   classNameBindings: ['isOpen:open']
   handlerTagName: 'a'
@@ -10,7 +13,7 @@ SelectDropDownComponent = Ember.Component.extend
   ).property 'handlerClasses'
 
   isOpen: no
-  curName: 'select'
+  defaultName: 'select'
   actions:
     toggleMenu: ->
       @toggleProperty 'isOpen'
@@ -18,8 +21,14 @@ SelectDropDownComponent = Ember.Component.extend
     selectItem: (item)->
       @sendAction 'action', item
       @setProperties
-        curName: item.name
+        selectedId: item.id
         isOpen: no
       no
+  selectedName: (->
+    selectedId = @get 'selectedId'
+    items = @get 'items'
+    if selectedId and items
+      items.findBy('id', selectedId).get 'name'
+  ).property 'selectedId'
 
 module.exports = SelectDropDownComponent

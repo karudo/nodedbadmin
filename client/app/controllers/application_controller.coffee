@@ -1,10 +1,20 @@
 module.exports = Ember.Controller.extend
   appName: "nodedbadmin"
 
-  actions:
-    connectionSelectorChanged: (conn)->
-      @set 'selectedConnection', conn
-      @set 'secondDropDownItems', App.CollectionClass.connect(conn.defQuery)
-    secondDropDownItemsSelectorChanged: (item)->
-      @set 'leftMenuItems', App.CollectionClass.connect(item.defQuery)
+  secondDropDownItems: (->
+    pastureId = @get 'pastureId'
+    if pastureId
+      connections = @get 'connections'
+      conn = connections.findBy 'id', pastureId
+      App.CollectionClass.connect conn.defQuery
+  ).property 'pastureId'
+
+  leftMenuItems: (->
+    secondDropDownId = @get 'secondDropDownId'
+    if secondDropDownId
+      secondDropDownItems = @get 'secondDropDownItems'
+      ddItem = secondDropDownItems.findBy 'id', secondDropDownId
+      if ddItem
+        App.CollectionClass.connect ddItem.defQuery
+  ).property 'secondDropDownId', 'secondDropDownItems.@each'
 

@@ -1,5 +1,5 @@
 module.exports = Ember.Component.extend
-  showPaginator: yes
+  #showPaginator: yes
   pages: (->
     needAddStart = 0
     needAddEnd = 0
@@ -7,7 +7,6 @@ module.exports = Ember.Component.extend
     pageSize = Number @get("pageSize")
     l = Number @get("allCount")
     pagesCount = Math.ceil(l / pageSize)
-    pagesArray = []
 
     pStart = curPageNum - 5
     if pStart < 1
@@ -18,6 +17,8 @@ module.exports = Ember.Component.extend
     if pEnd > pagesCount
       needAddStart = pEnd - pagesCount
       pEnd = pagesCount;
+    if pEnd < 1
+      pEnd = 1
 
     pagesArray = for pageNum in [pStart..pEnd]
       Ember.Object.create {pageNum, active: pageNum==curPageNum}
@@ -38,4 +39,9 @@ module.exports = Ember.Component.extend
 
     pagesArray
   ).property "pageSize", "allCount", 'curPageNum'
+
+  showPaginator: (->
+    pages = @get 'pages'
+    pages.length > 1
+  ).property 'pages'
 

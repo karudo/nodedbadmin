@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                {{#select-drop-down tagName="li" curName="select connection" items=connections action="connectionSelectorChanged"}}
+                {{#select-drop-down tagName="li" defaultName="select connection" items=connections selectedId=pastureId}}
                     <!--li class="divider"></li>
                     <li><a href="#">Edit connections</a></li-->
                 {{/select-drop-down}}
-                {{#if selectedConnection}}
-                    {{select-drop-down tagName="li" curName="select database" items=secondDropDownItems action="secondDropDownItemsSelectorChanged"}}
+                {{#if secondDropDownItems}}
+                    {{select-drop-down tagName="li" defaultName="select database" items=secondDropDownItems selectedId=secondDropDownId}}
                 {{/if}}
             </ul>
         </div><!-- /.nav-collapse -->
