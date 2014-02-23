@@ -12,6 +12,7 @@ ApplicationRoute = Ember.Route.extend
       connections: App.ConnectionCollection.connectPromise()
       pastureId: collId
       secondDropDownId: sid
+      curCollPath: path
 
 
   setupController: (controller, models)->

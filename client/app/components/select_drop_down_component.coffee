@@ -1,6 +1,4 @@
 SelectDropDownComponent = Ember.Component.extend
-  #init: ->
-  #  console.log 'aaaa', @get 'selectedId'
 
   classNames: ['dropdown']
   classNameBindings: ['isOpen:open']
@@ -27,8 +25,8 @@ SelectDropDownComponent = Ember.Component.extend
   selectedName: (->
     selectedId = @get 'selectedId'
     items = @get 'items'
-    if selectedId and items
+    if selectedId and items.get 'length'
       items.findBy('id', selectedId).get 'name'
-  ).property 'selectedId'
+  ).property 'selectedId', 'items.@each'
 
 module.exports = SelectDropDownComponent

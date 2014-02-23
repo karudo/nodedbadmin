@@ -4,7 +4,10 @@ module.exports = Ember.ArrayController.extend
   pageNum: 1
   pageSize: 25
 
-  #contentChanged: (->
-  #  console.log @get 'content.firstObject'
-  #).observes 'content'
-#  itemController: Ember.ArrayController.extend()
+  acont: (->
+    cont = @get 'content'
+    cont.map (v)->
+      Em.ArrayProxy.create
+        content: _.values v
+        pk: v.id
+  ).property 'content'

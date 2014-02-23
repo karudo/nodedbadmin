@@ -9,9 +9,9 @@
     </tr>
 </thead>
 <tbody>
-{{#each row in model}}
+{{#each row in acont}}
     <tr>
-        <td>&nbsp;</td>
+        <td>{{#link-to 'collection.edit' (query-params pk=row.pk)}}edit{{/link-to}}</td>
         {{#each col in row}}
             <td>{{col}}</td>
         {{/each}}

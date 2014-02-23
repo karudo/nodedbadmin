@@ -5,4 +5,6 @@ AppClass = Ember.Application.extend
   LOG_TRANSITIONS_INTERNAL: true
   LOG_VIEW_LOOKUPS: true
 
+  log: -> console.error new Date()+'', arguments...
+
 module.exports =  AppClass.create()

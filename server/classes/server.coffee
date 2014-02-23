@@ -58,7 +58,7 @@ class Server extends BaseClass
     nc = "n#{c}: "
     [collProto, collPath] = fullCollPath.split '#'
     [collNS, collId] = collProto.split ':'
-    console.log "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", collProto, collPath, collNS, collId
+    console.log "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", params, collProto, collPath, collNS, collId
     if collNS is 'pastures'
       console.log "#{nc} collNS is ok"
       @getPasture(collId).then (driver)->

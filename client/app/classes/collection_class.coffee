@@ -1,9 +1,9 @@
 CollectionItem = require './collection_item_class'
 
 load = (coll, path)->
-  console.log 'before load', path
+  App.log 'before load', path
   App.server.execCollectionMethod(path, 'query').then (items)->
-    console.log 'after load', path
+    App.log 'after load', path
     coll.setContent items
 
 
@@ -15,13 +15,11 @@ Collection = Ember.ArrayProxy.extend
   setContent: (items)->
     itemClass = @get 'itemClass'
     hi = ~@path.indexOf('/rows')
-    console.log new Date()
     @setObjects items.map (i)=>
       return _.values(i) if hi
       obj = itemClass.create i
       obj.set 'collection', @
       obj
-    console.log new Date()
 
 
 Collection.reopenClass
