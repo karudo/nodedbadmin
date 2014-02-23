@@ -1,5 +1,6 @@
-CollectionRoute = Ember.Route.extend
-  model: ({query:path, pageNum, pageSize})->
+CollectionIndexRoute = Ember.Route.extend
+  model: ({pageNum, pageSize}, transition)->
+    path = transition.params.collection.path
     path = decodeURIComponent(path)
     serverParams = {pageNum, pageSize}
     console.log new Date()+' before load', path, serverParams
@@ -19,4 +20,4 @@ CollectionRoute = Ember.Route.extend
       @refresh()
 
 
-module.exports = CollectionRoute
+module.exports = CollectionIndexRoute

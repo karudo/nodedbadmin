@@ -21,7 +21,7 @@ module.exports = Ember.Component.extend
       pEnd = 1
 
     pagesArray = for pageNum in [pStart..pEnd]
-      Ember.Object.create {pageNum, active: pageNum==curPageNum}
+      {pageNum, active: pageNum==curPageNum}
 
     pPrev = no
     if pStart > 1

@@ -1,6 +1,6 @@
 ApplicationRoute = Ember.Route.extend
   model: (params, transition)->
-    path = transition.params.collection?.query
+    path = transition.params.collection?.path
     if path
       path = decodeURIComponent path
       [collProto, collPath] = path.split '#'

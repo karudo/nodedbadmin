@@ -1,1 +1,21 @@
-ioioioi
+{{pagination-links curPageNum=pageNum pageSize=pageSize allCount=model.allCount}}
+<table class="table table-bordered table-striped">
+<thead>
+    <tr>
+        <th>&nbsp;</th>
+        {{#each col in model.headers}}
+            <th>{{col}}</th>
+        {{/each}}
+    </tr>
+</thead>
+<tbody>
+{{#each row in model}}
+    <tr>
+        <td>&nbsp;</td>
+        {{#each col in row}}
+            <td>{{col}}</td>
+        {{/each}}
+    </tr>
+{{/each}}
+</tbody>
+</table>
