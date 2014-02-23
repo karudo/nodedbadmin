@@ -35,7 +35,10 @@ module.exports = Ember.Component.extend
       if pNext > pagesCount
         pNext = pagesCount
 
-    @setProperties {pPrev, pNext}
+    pFirst = if pStart > 1 then 1 else no
+    pLast = if pEnd < pagesCount then pagesCount else no
+
+    @setProperties {pPrev, pNext, pFirst, pLast}
 
     pagesArray
   ).property "pageSize", "allCount", 'curPageNum'

@@ -1,13 +1,19 @@
 {{#if showPaginator}}
     <ul class="pagination pagination-sm">
+        {{#if pFirst}}
+            <li>{{#link-to (query-params pageNum=pFirst)}}&laquo;{{/link-to}}</li>
+        {{/if}}
         {{#if pPrev}}
-            <li>{{#link-to (query-params pageNum=pPrev)}}&laquo;{{/link-to}}</li>
+            <li>{{#link-to (query-params pageNum=pPrev)}}&lt;{{/link-to}}</li>
         {{/if}}
         {{#each pages}}
             <li {{bind-attr class="active"}}>{{link-to pageNum (query-params pageNum=pageNum)}}</li>
         {{/each}}
         {{#if pNext}}
-            <li>{{#link-to (query-params pageNum=pNext)}}&raquo;{{/link-to}}</li>
+            <li>{{#link-to (query-params pageNum=pNext)}}&gt;{{/link-to}}</li>
+        {{/if}}
+        {{#if pLast}}
+            <li>{{#link-to (query-params pageNum=pLast)}}&raquo;{{/link-to}}</li>
         {{/if}}
     </ul>
 {{/if}}
