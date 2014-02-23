@@ -6,8 +6,9 @@ CollectionRoute = Ember.Route.extend
     Ember.RSVP.hash(
       allCount: App.server.execCollectionMethod(path, 'count')
       content: App.server.execCollectionMethod(path, 'query', serverParams)
-    ).then (result)->
+    ).then (result)=>
       console.log new Date()+' after load', path, result.allCount
+      @controllerFor('application').set 'curCollPath', path
       result.headers = _.keys result.content[0]
       result.content = result.content.map (i)-> _.values(i)
       Ember.ArrayProxy.create result
