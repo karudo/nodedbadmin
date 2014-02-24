@@ -3,6 +3,8 @@ mysql = require 'mysql'
 {denodeify} = nodedbadmin.promise
 #{clone} = nodedbadmin.utils._
 
+autorelease = yes
+
 class MysqlCollection extends BaseDbCollection
   @configure 'MysqlCollection'
 
@@ -24,7 +26,9 @@ class MysqlCollection extends BaseDbCollection
   escapeId: (id)-> mysql.escapeId(id)
 
 
-  _query: (query, params={autorelease: yes})->
+  _query: (query, inserts)->
+    if inserts
+      query = mysql.format query, inserts
     console.log "Mysql exec query: #{query}"
     connProm = @connect()
     if @initFuncs and Array.isArray @initFuncs
@@ -32,7 +36,7 @@ class MysqlCollection extends BaseDbCollection
         connProm = connProm.then f
     connProm.then (conn)=>
       conn.queryPromise(query).then (r)->
-        conn.release() if params.autorelease
+        conn.release() if autorelease
         r
 
 module.exports = MysqlCollection

@@ -8,8 +8,10 @@ ApplicationRoute = Ember.Route.extend
       [firstItemPath] = collPath.split '/'
       [cn, sid] = firstItemPath.split ':'
 
+    coll = App.Collection.getByPath('system#pastures')
+    #coll.getStructure().then -> App.log arguments
     Ember.RSVP.hash
-      connections: App.ConnectionCollection.connectPromise()
+      connections: coll.query()
       pastureId: collId
       secondDropDownId: sid
       curCollPath: path

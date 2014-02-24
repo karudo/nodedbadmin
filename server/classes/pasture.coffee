@@ -1,5 +1,6 @@
 BaseCollection = require './base_collection'
 {join} = require 'path'
+{isString} = require '../utils/_'
 
 class Pasture extends BaseCollection
   @configure 'Pasture'
@@ -12,6 +13,7 @@ class Pasture extends BaseCollection
     driver:
       type: 'foreignKey'
       fkCollection: 'drivers'
+      fkFullPath: 'system#drivers'
     host: 'string'
     user: 'string'
     password: 'string'
@@ -21,9 +23,6 @@ class Pasture extends BaseCollection
     super
     @fromArray require join @configPath, 'pastures'
 
-
-  getStructure: ->
-    @getResolvedPromise @structure
 
   mapArr: (arr)->
     arr.map (i)->

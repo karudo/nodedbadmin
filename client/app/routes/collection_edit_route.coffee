@@ -1,7 +1,12 @@
 CollectionEditRoute = Ember.Route.extend
+  model: ({pk}, transition)->
+    {path} = transition.params.collection
+    path = decodeURIComponent path
 
-  setupController: (controller, params)->
+    App.Collection.getByPath(path).getByPk(pk)
 
-    controller.set 'pk', params.pk
+  #setupController: (controller, params)->
+    #App.log '!!!!!!!!!!', controller, params
+    #controller.set 'pk', params.pk
 
 module.exports = CollectionEditRoute

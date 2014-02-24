@@ -13,6 +13,4 @@ module.exports =
   CollectionIndexRoute: require './routes/collection_index_route'
   CollectionRoute: require './routes/collection_route'
   Collection: require './classes/collection'
-  CollectionClass: require './classes/collection_class'
   CollectionItemClass: require './classes/collection_item_class'
-  ConnectionCollection: require './classes/connection_collection'

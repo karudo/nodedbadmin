@@ -1,5 +1,5 @@
 BaseClass = require './base_class'
-{filter, clone} = require '../utils/_'
+{filter, clone, isString} = require '../utils/_'
 
 class BaseCollection extends BaseClass
   @configure 'BaseCollection'
@@ -24,6 +24,19 @@ class BaseCollection extends BaseClass
     @
 
   makePk: (idx)-> "pk#{idx}"
+
+
+  getStructure: ->
+    return @getRejectedPromise('no structure') unless @structure
+    struct = {}
+    for k, v of @structure
+      if isString v
+        struct[k] = {type: v}
+      else
+        struct[k] = v
+    @getResolvedPromise
+      pkFields: @pkFields
+      fields: struct
 
 
   add: (item)->

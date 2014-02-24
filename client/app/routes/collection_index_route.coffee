@@ -2,17 +2,23 @@ CollectionIndexRoute = Ember.Route.extend
   model: ({pageNum, pageSize}, transition)->
     path = transition.params.collection.path
     path = decodeURIComponent(path)
+    @controllerFor('application').set 'curCollPath', path
     serverParams = {pageNum, pageSize}
     App.log 'before load', path, serverParams
+    collection = App.Collection.getByPath(path)
     Ember.RSVP.hash(
-      allCount: App.server.execCollectionMethod(path, 'count')
-      content: App.server.execCollectionMethod(path, 'query', serverParams)
+      allCount: collection.count()
+      content: collection.query(serverParams)
     ).then (result)=>
       App.log 'after load', path, result.allCount
-      @controllerFor('application').set 'curCollPath', path
-      result.headers = _.keys result.content[0]
-      result.content = result.content
-      Ember.ArrayProxy.create result
+      {content, allCount} = result
+      content.setProperties
+        headers: _.keys(content.get('firstObject'))
+        allCount: allCount
+      content
+      #result.headers = _.keys result.content[0]
+      #result.content = result.content
+      #Ember.ArrayProxy.create result
 
 
   actions:
