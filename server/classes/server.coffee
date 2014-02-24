@@ -1,6 +1,7 @@
 {join} = require 'path'
 fs = require '../utils/fs'
 BaseClass = require './base_class'
+BaseCollection = require './base_collection'
 Pasture = require './pasture'
 Client = require './client'
 {Socket} = require '../webserver'
@@ -19,8 +20,11 @@ class Server extends BaseClass
 
   loadDrivers: ->
     fs.readdirPromise(join(__dirname,'../drivers')).then (dirs)=>
+      driversColl = []
       for d in dirs
         @_drivers[d] = require join '../drivers', d
+        driversColl.push {id: d, name: d}
+      @_collections.drivers = BaseCollection.fromArray driversColl
       @_drivers
 
 
@@ -30,7 +34,7 @@ class Server extends BaseClass
 
   initSocket: ->
     Socket.onUserConnect (socket)=>
-      socket.on 'message', -> console.log 333333, arguments
+      #socket.on 'message', -> console.log 333333, arguments
       cl = new Client socket, @
       @_clients.add cl
       cl.on 'disconnect', => cl.close()
@@ -66,15 +70,15 @@ class Server extends BaseClass
         driver.getCollection(collPath).then (collection)->
           console.log "#{nc} driver.getCollection #{collPath} ok"
           collection[method] params...
-    else if collNS is 'system' and @_collections[collId]
-      @_collections[collId][method] params...
+    else if collNS is 'system' and @_collections[collPath]
+      @_collections[collPath][method] params...
     else
       @getRejectedPromise("ERROR execCollectionMethod(#{fullCollPath}, #{method})")
 
 
   getPasture: (id)->
     @start().then =>
-      @_collections.pastures.getById(id).then (pasture)=>
+      @_collections.pastures.getByPk(id).then (pasture)=>
         unless @_connectedDrivers[pasture.id]
           driver = @_drivers[pasture.driver]
           throw @getError("no driver for pasture.driver='#{pasture.driver}'") unless driver

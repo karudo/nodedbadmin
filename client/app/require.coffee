@@ -12,6 +12,7 @@ module.exports =
   CollectionEditRoute: require './routes/collection_edit_route'
   CollectionIndexRoute: require './routes/collection_index_route'
   CollectionRoute: require './routes/collection_route'
+  Collection: require './classes/collection'
   CollectionClass: require './classes/collection_class'
   CollectionItemClass: require './classes/collection_item_class'
   ConnectionCollection: require './classes/connection_collection'

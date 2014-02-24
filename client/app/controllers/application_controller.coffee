@@ -7,7 +7,7 @@ module.exports = Ember.Controller.extend
       connections = @get 'connections'
       conn = connections.findBy 'id', pastureId
       if conn
-        App.CollectionClass.connect conn.defQuery
+        App.CollectionClass.connect conn.defPath
   ).property 'pastureId', 'connections.@each'
 
   leftMenuItems: (->
@@ -17,6 +17,6 @@ module.exports = Ember.Controller.extend
       if secondDropDownItems and secondDropDownItems.get('length')
         ddItem = secondDropDownItems.findBy 'id', secondDropDownId
         if ddItem
-          App.CollectionClass.connect ddItem.defQuery
+          App.CollectionClass.connect ddItem.defPath
   ).property 'secondDropDownId', 'secondDropDownItems.@each'
 

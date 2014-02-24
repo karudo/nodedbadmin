@@ -7,22 +7,20 @@ load = (coll, path)->
     coll.setContent items
 
 
-Collection = Ember.ArrayProxy.extend
+CollectionClass = Ember.ArrayProxy.extend
   itemClass: CollectionItem
 
   query: ->
 
   setContent: (items)->
     itemClass = @get 'itemClass'
-    hi = ~@path.indexOf('/rows')
     @setObjects items.map (i)=>
-      return _.values(i) if hi
       obj = itemClass.create i
       obj.set 'collection', @
       obj
 
 
-Collection.reopenClass
+CollectionClass.reopenClass
   connect: (path)->
     coll = @create {content: [], path}
     load coll, path
@@ -33,4 +31,4 @@ Collection.reopenClass
 
 
 
-module.exports = Collection
+module.exports = CollectionClass

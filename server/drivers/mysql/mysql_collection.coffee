@@ -1,7 +1,7 @@
 mysql = require 'mysql'
 {BaseDbCollection} = nodedbadmin.classes
 {denodeify} = nodedbadmin.promise
-{clone} = nodedbadmin.utils._
+#{clone} = nodedbadmin.utils._
 
 class MysqlCollection extends BaseDbCollection
   @configure 'MysqlCollection'
@@ -9,8 +9,11 @@ class MysqlCollection extends BaseDbCollection
 
   connect: ->
     unless @pool
-      par = clone @driver.pasture.params
-      par.dateStrings = yes
+      par =
+        host: @driver.pasture.host
+        user: @driver.pasture.user
+        password: @driver.pasture.password
+        dateStrings: yes
       @pool = mysql.createPool par
       @pool.getConnectionPromise = denodeify(@pool.getConnection, @pool)
     @pool.getConnectionPromise().then (conn)->
@@ -19,6 +22,8 @@ class MysqlCollection extends BaseDbCollection
 
 
   escapeId: (id)-> mysql.escapeId(id)
+
+
   _query: (query, params={autorelease: yes})->
     console.log "Mysql exec query: #{query}"
     connProm = @connect()

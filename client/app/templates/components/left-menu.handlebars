@@ -1,7 +1,7 @@
 {{#if items}}
     <div class="list-group">
-    {{#each items}}
-        {{#link-to 'collection' encDefQuery (query-params pageNum=1) class="list-group-item" active=active}}{{name}}{{/link-to}}
+    {{#each showItems}}
+        {{#link-to 'collection' linkToParam (query-params pageNum=1) class="list-group-item" active=active}}{{name}}{{/link-to}}
     {{/each}}
     </div>
 {{/if}}

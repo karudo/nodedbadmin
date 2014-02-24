@@ -1,5 +1,4 @@
-CollectionItem = Ember.Object.extend
-  encDefQuery: (-> encodeURIComponent @get 'defQuery').property('defQuery')
+CollectionItem = Ember.Object.extend()
 
 module.exports = CollectionItem
 

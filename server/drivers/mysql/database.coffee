@@ -10,11 +10,11 @@ class MysqlDatabaseCollection extends MysqlCollection
       conn.queryPromise("use #{pathStep.query}").then -> conn
 
 
-  query: (params)->
+  query: ->
     @_query("show databases").then ([result])=>
       result.map (arr)=>
         id = chain(arr).values().first().value()
-        {id, name: id, defQuery: @getPathStr(id, 'tables')}
+        {id, name: id, defPath: @getPathStr(id, 'tables')}
 
 
 

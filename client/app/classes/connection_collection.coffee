@@ -9,6 +9,6 @@ Connection = CollectionClass.extend
 
 Connection.reopenClass
   connect: ->
-    @_super 'system:pastures'
+    @_super 'system#pastures'
 
 module.exports = Connection

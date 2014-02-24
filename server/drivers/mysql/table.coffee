@@ -8,7 +8,7 @@ class MysqlTableCollection extends MysqlCollection
     @_query("show tables").then ([result])=>
       result.map (arr)=>
         id = chain(arr).values().first().value()
-        {id, name: id, defQuery: @getPathStr(id, 'rows')}
+        {id, name: id, defPath: @getPathStr(id, 'rows')}
 
 
 
