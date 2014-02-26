@@ -1,6 +1,6 @@
 BaseCollection = require './base_collection'
 {join} = require 'path'
-{isString} = require '../utils/_'
+{isString, chain, intval, pluck} = require '../utils/_'
 
 class Pasture extends BaseCollection
   @configure 'Pasture'
@@ -27,7 +27,13 @@ class Pasture extends BaseCollection
       i.defPath = "#{i.driverPath}#databases"
       i
 
-  makePk: (idx, item)-> "pasture#{idx}"
+  makePk: (idx, item)->
+    cur = chain(@_items).pluck(@pkFields).filter().map((v)-> intval v.replace('conn', '')).max().value()
+    if cur < 0
+      cur = 0
+    cur++
+    'conn' + cur
+
 
 
 

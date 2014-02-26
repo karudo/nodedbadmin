@@ -40,9 +40,10 @@ class BaseCollection extends BaseClass
 
   add: (item)->
     i = @_items.push item
-    item.id = @makePk(i - 1, item) unless item.id
+    item[@pkFields] = @makePk(i - 1, item) unless item[@pkFields]
     @emit 'added', item
     @emit 'itemsChanged'
+    @getResolvedPromise(item.id)
 
 
   updateByPk: (pk, changes)->

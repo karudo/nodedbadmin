@@ -2,7 +2,7 @@ LeftMenuComponent = Ember.Component.extend
   classNames: ['left-menu']
 
   showItems: (->
-    items = @get 'items'
+    items = @get('items') or []
     items.map (it)->
       it.set 'linkToParam', encodeURIComponent(it.get 'defPath')
       it

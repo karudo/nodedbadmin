@@ -14,6 +14,7 @@ connPromise.then ->
     #console.log "qqqq #{error}, #{result}"
     if IDS[id]
       if error
+        App.log 'ERROR:exec:method', error
         IDS[id].reject error
       else
         IDS[id].resolve result

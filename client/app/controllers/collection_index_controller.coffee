@@ -6,8 +6,11 @@ module.exports = Ember.ArrayController.extend
 
   acont: (->
     cont = @get 'content'
+    headers = @get 'content.headers'
     cont.map (v)->
+      content = for h in headers
+        v[h] or ''
       Em.ArrayProxy.create
-        content: _.values v
+        content: content
         pk: v.id
-  ).property 'content'
+  ).property 'content', 'content.headers'

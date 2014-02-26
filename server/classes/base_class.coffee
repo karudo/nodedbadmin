@@ -2,6 +2,11 @@
 {clone, isFunction, extend} = require '../utils/_'
 {Promise} = promise = require '../promise'
 
+class BaseError extends Error
+  constructor: ({@reason, @classPath, @task})->
+    super @reason
+
+
 
 
 class BaseClass extends EventEmitter
@@ -19,6 +24,7 @@ class BaseClass extends EventEmitter
 
 
   getClassName: -> @_bc[@_bc.length - 1]
+  getClassPath: -> @_bc.join(':')
 
   getLabel: (label)-> @_bc.join(':') + if label then "##{label}" else ''
 
@@ -34,7 +40,10 @@ class BaseClass extends EventEmitter
       @getRejectedPromise(reason, label)
 
   isError: (e)-> e instanceof Error
-  getError: (str)-> new Error str
+  getError: (task, reason)->
+    reason = task unless reason
+
+    new BaseError {reason, task, classPath: @getClassPath()}
 
   getEmptyPipeFunc: (a, b)->
     if isFunction a

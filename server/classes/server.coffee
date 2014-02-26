@@ -33,6 +33,8 @@ class Server extends BaseClass
     fs.readFilePromise(pastureFile).then (fileSource)=>
       pastures = JSON.parse fileSource
       pasObj = Pasture.fromArray pastures
+      pasObj.on 'added', (item)=> delete @_connectedDrivers[item.id]
+      pasObj.on 'changed', (item)=> delete @_connectedDrivers[item.id]
       pasObj.on 'itemsChanged', =>
         items = pasObj._items
         fileData = JSON.stringify items, null, "  "

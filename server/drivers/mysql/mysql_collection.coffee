@@ -18,9 +18,11 @@ class MysqlCollection extends BaseDbCollection
         dateStrings: yes
       @pool = mysql.createPool par
       @pool.getConnectionPromise = denodeify(@pool.getConnection, @pool)
-    @pool.getConnectionPromise().then (conn)->
+    @pool.getConnectionPromise().then ((conn)->
       conn.queryPromise = denodeify(conn.query, conn)
       conn
+    ), (err)=>
+      throw @getError 'getConnectionPromise', "#{err}"
 
 
   escapeId: (id)-> mysql.escapeId(id)

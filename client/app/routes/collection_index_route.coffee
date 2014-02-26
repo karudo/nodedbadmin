@@ -10,11 +10,12 @@ CollectionIndexRoute = Ember.Route.extend
     Ember.RSVP.hash(
       allCount: collection.count()
       content: collection.query(serverParams)
+      structure: collection.getStructure()
     ).then (result)=>
       App.log 'after load', path, result.allCount
-      {content, allCount} = result
+      {content, allCount, structure} = result
       content.setProperties
-        headers: _.keys(content.get('firstObject'))
+        headers: structure.fields.map (f)-> f.name
         allCount: allCount
       content
 

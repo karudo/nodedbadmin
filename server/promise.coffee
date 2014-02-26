@@ -6,6 +6,19 @@ rsvp.on 'rejected', (event)-> console.log 'rejected', event
 class Promise extends rsvp.Promise
 
 
+decallback = (clbFunc, binding)->
+  (argsOrig...)->
+    thisArg = @ or binding
+    new Promise (resolve, reject) ->
+      try
+        argsOrig.push (args...)->
+          if args.length > 1
+            resolve args
+          else
+            resolve args[0]
+        clbFunc.apply thisArg, argsOrig
+      catch e
+        reject e
 
 
 denodeify = (nodeFunc, binding) ->
@@ -26,4 +39,4 @@ denodeify = (nodeFunc, binding) ->
 
 
 
-module.exports = {Promise, denodeify}
+module.exports = {Promise, denodeify, decallback}
