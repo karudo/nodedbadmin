@@ -25,5 +25,16 @@ class MysqlTableRowCollection extends MysqlCollection
     sql = "SELECT * FROM ?? WHERE id=?"
     @_query(sql, [@tableName, pk]).then ([result])-> result[0]
 
+  getStructure: ->
+    @_query('DESCRIBE ??', [@tableName]).then ([result])->
+      pkFields = null
+      fields = result.map (fInfo)->
+        ret = {name: fInfo.Field, type: 'string'}
+        if fInfo.Key is 'PRI'
+          pkFields = ret.name
+          ret.canEdit = no
+        ret
+      {fields, pkFields}
+
 
 module.exports = MysqlTableRowCollection

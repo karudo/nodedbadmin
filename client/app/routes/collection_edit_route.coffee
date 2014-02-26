@@ -19,6 +19,7 @@ CollectionEditRoute = Ember.Route.extend
       if @get('controller.valuesChanged') and confirm('Want to save changes?')
         transition.abort()
       else
+        @get('controller.changedFields').clear?()
         yes
 
 

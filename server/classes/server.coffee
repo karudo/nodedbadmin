@@ -29,7 +29,16 @@ class Server extends BaseClass
 
 
   loadPastures: ->
-    @getPromise (res)=> res @_collections.pastures = new Pasture @config.configPath
+    pastureFile = join @config.configPath, 'pastures.json'
+    fs.readFilePromise(pastureFile).then (fileSource)=>
+      pastures = JSON.parse fileSource
+      pasObj = Pasture.fromArray pastures
+      pasObj.on 'itemsChanged', =>
+        items = pasObj._items
+        fileData = JSON.stringify items, null, "  "
+        fs.writeFilePromise(pastureFile, fileData).then ->
+          console.log 'pastures saved'
+      @_collections.pastures = pasObj
 
 
   initSocket: ->

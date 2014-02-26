@@ -11,17 +11,14 @@ class Pasture extends BaseCollection
       canEdit: no
     name: 'string'
     driver:
-      type: 'foreignKey'
-      fkCollection: 'drivers'
-      fkFullPath: 'system#drivers'
+      type: 'string'
+      canEdit: no
+      #type: 'foreignKey'
+      #fkCollection: 'drivers'
+      #fkFullPath: 'system#drivers'
     host: 'string'
     user: 'string'
     password: 'string'
-
-
-  constructor: (@configPath)->
-    super
-    @fromArray require join @configPath, 'pastures'
 
 
   mapArr: (arr)->

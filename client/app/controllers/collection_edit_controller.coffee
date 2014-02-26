@@ -11,6 +11,10 @@ module.exports = Ember.Controller.extend
   queryParams: ['pk']
   pk: no
 
+  init: ->
+    @_super()
+    @set 'changedFields', new Ember.Set()
+
   showFields: (->
     fields = @get 'fields'
     return [] unless fields
@@ -27,11 +31,10 @@ module.exports = Ember.Controller.extend
   ).property 'fields.@each'
 
   saveDisabled: (-> not @get 'valuesChanged').property 'valuesChanged'
+  valuesChanged: (-> @get('changedFields.length') > 0).property 'changedFields.[]'
 
   valueDidChanged: (name)->
-    @changedFields or= {}
-    @changedFields[name] = yes
-    @set 'valuesChanged', yes
+    @get('changedFields').add name
 
   goBack: ->
     tr = @get('controllers.application.lastCollectionIndexTransition')
@@ -43,15 +46,13 @@ module.exports = Ember.Controller.extend
   actions:
     save: ->
       newVals = {}
-      for k in _.keys @changedFields
+      for k in @get('changedFields.[]')
         newVals[k] = @get "model.#{k}"
       App.Collection.getByPath(@get('collectionPath')).updateByPk(@get('pk'), newVals).then =>
-        @changedFields = {}
-        @set 'valuesChanged', no
+        @get('changedFields').clear()
         @goBack()
     cancel: ->
-      @changedFields = {}
-      @set 'valuesChanged', no
+      @get('changedFields').clear()
       @goBack()
 
      #App.log @changedFields, @modelOrig, @get 'model.name'
