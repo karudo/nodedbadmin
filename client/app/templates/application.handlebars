@@ -2,13 +2,14 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                {{#select-drop-down tagName="li" defaultName="select connection" items=connections selectedId=pastureId}}
-                    <!--li class="divider"></li>
-                    <li><a href="#">Edit connections</a></li-->
-                {{/select-drop-down}}
+                {{select-drop-down tagName="li" defaultName="Select connection" items=connections selectedId=pastureId}}
                 {{#if secondDropDownItems}}
-                    {{select-drop-down tagName="li" defaultName="select database" items=secondDropDownItems selectedId=secondDropDownId}}
+                    {{select-drop-down tagName="li" defaultName="Select database" items=secondDropDownItems selectedId=secondDropDownId}}
                 {{/if}}
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>{{#link-to 'collection' 'system%23pastures' (query-params pageNum=1)}}Edit connections{{/link-to}}</li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->

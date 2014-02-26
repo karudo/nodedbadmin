@@ -14,3 +14,4 @@ module.exports =
   CollectionRoute: require './routes/collection_route'
   Collection: require './classes/collection'
   CollectionItemClass: require './classes/collection_item_class'
+  EditView: require './views/edit_view'

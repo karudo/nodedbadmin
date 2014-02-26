@@ -28,12 +28,11 @@ class BaseCollection extends BaseClass
 
   getStructure: ->
     return @getRejectedPromise('no structure') unless @structure
-    struct = {}
-    for k, v of @structure
-      if isString v
-        struct[k] = {type: v}
-      else
-        struct[k] = v
+    struct = for k, v of @structure
+      fInfo = if isString v then {type: v} else clone v
+      fInfo.name = k
+      fInfo
+
     @getResolvedPromise
       pkFields: @pkFields
       fields: struct
@@ -64,6 +63,9 @@ class BaseCollection extends BaseClass
     @query({query}).then (arr)=>
       throw @getError('cant find by id') unless arr.length
       arr[0]
+
+  count: ->
+    @getResolvedPromise(@_items.length)
 
 
 
