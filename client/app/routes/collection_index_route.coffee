@@ -1,5 +1,6 @@
 CollectionIndexRoute = Ember.Route.extend
   model: ({pageNum, pageSize}, transition)->
+    @controllerFor('application').set 'lastCollectionIndexTransition', transition
     path = transition.params.collection.path
     path = decodeURIComponent(path)
     @controllerFor('application').set 'curCollPath', path
@@ -16,9 +17,6 @@ CollectionIndexRoute = Ember.Route.extend
         headers: _.keys(content.get('firstObject'))
         allCount: allCount
       content
-      #result.headers = _.keys result.content[0]
-      #result.content = result.content
-      #Ember.ArrayProxy.create result
 
 
   actions:

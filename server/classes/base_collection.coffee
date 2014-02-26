@@ -51,6 +51,7 @@ class BaseCollection extends BaseClass
         item[k] = v
       @emit 'changed', item
       @emit 'itemsChanged'
+      @getResolvedPromise()
 
 
   query: (params = {})->

@@ -7,7 +7,8 @@
 {{/each}}
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Save</button>
+            <button {{action 'save'}} type="submit" class="btn btn-success" {{bind-attr disabled=saveDisabled}}>Save</button>
+            <button {{action 'cancel'}} type="submit" class="btn btn-default">Cancel</button>
         </div>
     </div>
 </form>

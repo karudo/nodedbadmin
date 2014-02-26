@@ -10,7 +10,9 @@ LeftMenuComponent = Ember.Component.extend
 
   curPathDidChange: (->
     curPath = @get 'curPath'
-    @get('items').forEach (it)-> it.set 'active', it.defPath == curPath
+    items = @get 'items'
+    if items
+      items.forEach (it)-> it.set 'active', it.defPath == curPath
   ).observes 'curPath', 'items.@each'
 
 

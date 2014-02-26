@@ -23,7 +23,7 @@ obj =
       coll.setObjects itemsMap(items, coll, @get('itemClass'))
     coll
 
-for m in ['count', 'getStructure', 'getByPk']
+for m in ['count', 'getStructure', 'getByPk', 'updateByPk']
   obj[m] = do(m)-> (params...)->
     App.server.execCollectionMethod(@path, m, params...)
 
