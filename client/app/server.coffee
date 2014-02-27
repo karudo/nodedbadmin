@@ -25,9 +25,8 @@ execCollectionMethod = (fullCollPath, method, params...)->
   defer = Em.RSVP.defer()
   #console.log "execCollectionMethod (#{fullCollPath}, #{method})"
   connPromise.then ->
-    #console.log 'connPromise.then'
+    console?.log 'collection:exec:method', fullCollPath, method, params
     socket.emit "collection:exec:method", fullCollPath, method, params, (id)->
-      #console.log 'promise id', id
       if id
         IDS[id] = defer
       else

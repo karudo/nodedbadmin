@@ -63,7 +63,7 @@ class BaseCollection extends BaseClass
     query = {}
     query[@pkFields] = pk
     @query({query}).then (arr)=>
-      throw @getError('cant find by id') unless arr.length
+      throw @getError('BaseCollection.getByPk', 'cant find by pk') unless arr.length
       arr[0]
 
   count: ->

@@ -48,7 +48,11 @@ module.exports = Ember.Controller.extend
       newVals = {}
       for k in @get('changedFields.[]')
         newVals[k] = @get "model.#{k}"
-      App.Collection.getByPath(@get('collectionPath')).updateByPk(@get('pk'), newVals).then =>
+      if @get('isExistsModel')
+        prom = App.Collection.getByPath(@get('collectionPath')).updateByPk(@get('pk'), newVals)
+      else
+        prom = App.Collection.getByPath(@get('collectionPath')).add(newVals)
+      prom.then =>
         @get('changedFields').clear()
         @goBack()
     cancel: ->

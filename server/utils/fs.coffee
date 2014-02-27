@@ -12,9 +12,6 @@ for key, value of fs
     newFs[key+'Promise'] = denodeify value
 
 newFs.mkdirFullPromise = (fullPath, mode = 0o700)->
-
-  pr = Promise.resolve('/')
-
   pathArr = fullPath.split '/'
   pathArr = pathArr.filter (el)-> !!el
 
@@ -27,6 +24,6 @@ newFs.mkdirFullPromise = (fullPath, mode = 0o700)->
         else
           newFs.mkdirPromise(newPath, mode).then ->
             newPath
-  ), pr
+  ), Promise.resolve('/')
 
 module.exports = newFs

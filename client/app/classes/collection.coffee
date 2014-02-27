@@ -7,7 +7,7 @@ itemsMap = (items, coll, itemClass)->
     obj
 
 #getStructure
-obj =
+objForExtend =
   itemClass: CollectionItem
   path: null
 
@@ -23,11 +23,11 @@ obj =
       coll.setObjects itemsMap(items, coll, @get('itemClass'))
     coll
 
-for m in ['count', 'getStructure', 'getByPk', 'updateByPk']
-  obj[m] = do(m)-> (params...)->
-    App.server.execCollectionMethod(@path, m, params...)
+for m in ['count', 'getStructure', 'getByPk', 'updateByPk', 'add']
+  objForExtend[m] = do(m)->
+    (params...)-> App.server.execCollectionMethod(@path, m, params...)
 
-Collection = Ember.Object.extend obj
+Collection = Ember.Object.extend objForExtend
 
 Collection.reopenClass
   getByPath: (path)->
