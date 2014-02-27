@@ -29,19 +29,34 @@ class Server extends BaseClass
       @_collections.drivers = BaseCollection.fromArray driversColl
       @_drivers
 
+  configPath: (path = @config.configPath)->
+    fs.mkdirFullPromise(path)
 
   loadPastures: ->
-    pastureFile = join @config.configPath, 'pastures.json'
-    fs.readFilePromise(pastureFile).then (fileSource)=>
-      pastures = JSON.parse fileSource
+    pastureFile = null
+    @configPath().catch(=>
+      @logger.error 'can\'t create config path'
+      no
+    ).then((configDir)=>
+      unless configDir
+        []
+      else
+        pastureFile = join configDir, 'pastures.json'
+        fs.readFilePromise(pastureFile).then(JSON.parse).catch (err)=>
+          @logger.warn "can't load connections", err
+          []
+    ).then (pastures)=>
       pasObj = Pasture.fromArray pastures
       pasObj.on 'added', (item)=> delete @_connectedDrivers[item.id]
       pasObj.on 'changed', (item)=> delete @_connectedDrivers[item.id]
       pasObj.on 'itemsChanged', =>
         items = pasObj._items
         fileData = JSON.stringify items, null, "  "
-        fs.writeFilePromise(pastureFile, fileData).then =>
-          @logger.debug 'pastures saved'
+        fs.writeFilePromise(pastureFile, fileData).then (=>
+          @logger.debug 'connections saved'
+        ), (=>
+          @logger.warn "can't save connections"
+        )
       @_collections.pastures = pasObj
 
 

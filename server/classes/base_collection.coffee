@@ -16,8 +16,6 @@ class BaseCollection extends BaseClass
 
   fromArray: (arr)->
     throw @getError('no array!') unless Array.isArray arr
-    if @mapArr
-      arr = @mapArr arr
     @_items = []
     arr.forEach @add.bind(@)
     @_inited = yes
@@ -56,7 +54,8 @@ class BaseCollection extends BaseClass
 
 
   query: (params = {})->
-    @getResolvedPromise(clone(if params.query then filter(@_items, params.query) else @_items), 'query')
+    arr = clone(if params.query then filter(@_items, params.query) else @_items)
+    @getResolvedPromise (if @mapArr then @mapArr arr else arr), 'query'
 
 
   getByPk: (pk)->
