@@ -85,7 +85,6 @@ class Server extends BaseClass
     @_startPromise
 
 
-
   execCollectionMethod: (fullCollPath, method, params...)->
     c = @_ecm_count++
     nc = "n#{c}: "

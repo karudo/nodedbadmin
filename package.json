@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/karudo/nodedbadmin.git"
   },
+  "bin": {
+    "nodedbadmin": "./index.js"
+  },
   "author": "Deonis Peretyagin",
   "license": "MIT",
   "bugs": {
@@ -24,7 +27,8 @@
     "mysql": "~2.0.1",
     "express": "~3.4.8",
     "socket.io": "~0.9.16",
-    "es6-shim": "~0.9.3"
+    "es6-shim": "~0.9.3",
+    "commander": "~2.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

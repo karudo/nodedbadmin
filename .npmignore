@@ -1,5 +1,9 @@
+/.idea
+/client
 .gitignore
 .bowerrc
+.npmignore
+bower.json
 Gruntfile.coffee
 tmp/
 node_modules/

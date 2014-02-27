@@ -3,7 +3,7 @@ fs = require '../utils/fs'
 BaseClass = require './base_class'
 
 aerr = (err, logger)->
-  logger.error err
+  logger.error 'collection:exec:method', err
   err
 
 class Client extends BaseClass
