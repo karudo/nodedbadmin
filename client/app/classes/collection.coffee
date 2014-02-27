@@ -1,37 +1,54 @@
 CollectionItem = require './collection_item_class'
 
-itemsMap = (items, coll, itemClass)->
-  items.map (i)->
-    obj = itemClass.create i
-    #obj.set 'collection', coll
-    obj
+class CachedCollection
+  constructor: (@path, @method, @params, @itemClass)->
+    @collection = Ember.ArrayProxy.create(content: [])
+    @reload()
 
-#getStructure
-objForExtend =
+  reload: ->
+    App.server.execCollectionMethod(@path, @method, @params...).then (items)=>
+      @collection.setObjects items.map (i)=> @itemClass.create i
+
+collections = {}
+cachedCollections = {}
+
+Collection = Ember.Object.extend
   itemClass: CollectionItem
   path: null
 
   query: (params...)->
     App.server.execCollectionMethod(@path, 'query', params...).then (items)=>
-      coll = Ember.ArrayProxy.create content: []
-      coll.setObjects itemsMap(items, coll, @get('itemClass'))
-      coll
+      itemClass = @get('itemClass')
+      items.map (i)-> itemClass.create i
 
   queryModel: (params...)->
     coll = Ember.ArrayProxy.create(content: [])
-    App.server.execCollectionMethod(@path, 'query', params...).then (items)=>
-      coll.setObjects itemsMap(items, coll, @get('itemClass'))
+    @query(params...).then (items)->
+      coll.setObjects items
     coll
 
+  cachedQuery: (params...)->
+    unless cachedCollections.hasOwnProperty @path
+      cachedCollections[@path] = new CachedCollection @path, 'query', params, @get('itemClass')
+    cachedCollections[@path].collection
+  reloadCachedQuery: ->
+    cachedCollections[@path]?.reload()
+
+
+
+objForExtend = {}
 for m in ['count', 'getStructure', 'getByPk', 'updateByPk', 'add']
   objForExtend[m] = do(m)->
     (params...)-> App.server.execCollectionMethod(@path, m, params...)
-
-Collection = Ember.Object.extend objForExtend
+Collection.reopen objForExtend
 
 Collection.reopenClass
   getByPath: (path)->
-    Collection.create {path}
+    unless collections[path]
+      collections[path] = Collection.create {path}
+    collections[path]
+  reloadCachedQuery: (path)->
+    @getByPath(path).reloadCachedQuery()
 
 
 module.exports = Collection

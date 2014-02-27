@@ -11,7 +11,7 @@ ApplicationRoute = Ember.Route.extend
     coll = App.Collection.getByPath('system#pastures')
     #coll.getStructure().then -> App.log arguments
     Ember.RSVP.hash
-      connections: coll.query()
+      connections: coll.cachedQuery()
       pastureId: collId
       secondDropDownId: sid
       curCollPath: path

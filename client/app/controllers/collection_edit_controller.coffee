@@ -54,6 +54,7 @@ module.exports = Ember.Controller.extend
         prom = App.Collection.getByPath(@get('collectionPath')).add(newVals)
       prom.then =>
         @get('changedFields').clear()
+        App.Collection.reloadCachedQuery('system#pastures')
         @goBack()
     cancel: ->
       @get('changedFields').clear()
