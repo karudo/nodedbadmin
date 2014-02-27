@@ -17,6 +17,7 @@ app.use '/static', express.static publicdir
 
 server = require("http").createServer(app)
 io = io.listen(server)
+io.set 'log level', 1
 #io.on "connection", (socket)->
 #  console.log socket
 #  socket.on 'hui', ->
@@ -24,8 +25,10 @@ io = io.listen(server)
 
 server.listen 3000
 
+class Server extends BaseClass
+
 
 class Socket extends BaseClass
   @onUserConnect: (func)-> io.on 'connection', func
 
-module.exports = {Socket}
+module.exports = {Socket, Server}

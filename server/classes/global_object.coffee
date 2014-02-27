@@ -8,5 +8,11 @@ class GlobalObject extends BaseClass
     _: require '../utils/_'
     fs: require '../utils/fs'
 
+  constructor: (vars)->
+    if vars
+      for k, v of vars
+        @[k] = v
+
+
 
 module.exports = GlobalObject

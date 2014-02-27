@@ -42,7 +42,8 @@ class BaseClass extends EventEmitter
   isError: (e)-> e instanceof Error
   getError: (task, reason)->
     reason = task unless reason
-
+    if reason is task
+      task = 'unknown'
     new BaseError {reason, task, classPath: @getClassPath()}
 
   getEmptyPipeFunc: (a, b)->

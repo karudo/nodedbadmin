@@ -1,7 +1,7 @@
 rsvp = require 'rsvp'
 
-rsvp.configure 'instrument', yes
-rsvp.on 'rejected', (event)-> console.log 'rejected', event
+#rsvp.configure 'instrument', yes
+#rsvp.on 'rejected', (event)-> console.log 'rejected', event
 
 class Promise extends rsvp.Promise
 

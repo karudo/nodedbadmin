@@ -1,6 +1,7 @@
 mysql = require 'mysql'
 {BaseDbCollection} = nodedbadmin.classes
 {denodeify} = nodedbadmin.promise
+{logger} = nodedbadmin
 #{clone} = nodedbadmin.utils._
 
 autorelease = yes
@@ -31,7 +32,7 @@ class MysqlCollection extends BaseDbCollection
   _query: (query, inserts)->
     if inserts
       query = mysql.format query, inserts
-    console.log "Mysql exec query: #{query}"
+    logger.info "Mysql exec query: #{query}"
     connProm = @connect()
     if @initFuncs and Array.isArray @initFuncs
       for f in @initFuncs

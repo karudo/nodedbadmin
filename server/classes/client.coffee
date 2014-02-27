@@ -2,8 +2,8 @@
 fs = require '../utils/fs'
 BaseClass = require './base_class'
 
-aerr = (err)->
-  #console.log '!!!!!!!!!!!!!', err, err.message
+aerr = (err, logger)->
+  logger.error err
   err
 
 class Client extends BaseClass
@@ -18,7 +18,7 @@ class Client extends BaseClass
       cb promise._id
       f = do(promise_id = promise._id)=>
         (err, result)=> @send 'collection:exec:method', promise_id, err, result
-      promise.then ((result)=> f(no, result)), ((err)=> f(aerr(err)))
+      promise.then ((result)=> f(no, result)), ((err)=> f(aerr(err, @server.logger)))
 
 
   send: (message, params...)->

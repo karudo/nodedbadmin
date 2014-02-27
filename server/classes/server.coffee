@@ -4,18 +4,20 @@ BaseClass = require './base_class'
 BaseCollection = require './base_collection'
 Pasture = require './pasture'
 Client = require './client'
+
 {Socket} = require '../webserver'
+Logger = require '../logger'
 
 class Server extends BaseClass
   @configure 'Server'
 
   constructor: (@config)->
+    @logger = new Logger @config.logLevel
     @_ecm_count = 0
     @_drivers = {}
     @_connectedDrivers = {}
     @_clients = new Set()
     @_collections = {}
-
 
 
   loadDrivers: ->
@@ -38,8 +40,8 @@ class Server extends BaseClass
       pasObj.on 'itemsChanged', =>
         items = pasObj._items
         fileData = JSON.stringify items, null, "  "
-        fs.writeFilePromise(pastureFile, fileData).then ->
-          console.log 'pastures saved'
+        fs.writeFilePromise(pastureFile, fileData).then =>
+          @logger.debug 'pastures saved'
       @_collections.pastures = pasObj
 
 
@@ -54,10 +56,11 @@ class Server extends BaseClass
   registerGlobals: ->
     @getResolvedPromise().then =>
       GlobalObject = require './global_object'
-      global['nodedbadmin'] = new GlobalObject
+      global['nodedbadmin'] = new GlobalObject {@logger}
 
 
   start: ->
+    @logger.debug 'Start with config', @config
     unless @_startPromise
       @initSocket()
       @_startPromise = @getResolvedPromise()
@@ -73,13 +76,13 @@ class Server extends BaseClass
     nc = "n#{c}: "
     [collProto, collPath] = fullCollPath.split '#'
     [collNS, collId] = collProto.split ':'
-    console.log "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", params, collProto, collPath, collNS, collId
+    @logger.debug "#{nc}execCollectionMethod(#{fullCollPath}, #{method})", params, collProto, collPath, collNS, collId
     if collNS is 'pastures'
-      console.log "#{nc} collNS is ok"
-      @getPasture(collId).then (driver)->
-        console.log "#{nc} @getPasture #{collId} ok"
-        driver.getCollection(collPath).then (collection)->
-          console.log "#{nc} driver.getCollection #{collPath} ok"
+      @logger.debug "#{nc} collNS is ok"
+      @getPasture(collId).then (driver)=>
+        @logger.debug "#{nc} @getPasture #{collId} ok"
+        driver.getCollection(collPath).then (collection)=>
+          @logger.debug "#{nc} driver.getCollection #{collPath} ok"
           collection[method] params...
     else if collNS is 'system' and @_collections[collPath]
       @_collections[collPath][method] params...

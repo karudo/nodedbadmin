@@ -6,7 +6,6 @@ class BaseDbCollection extends BaseClass
 
   constructor: (@driver, @path)->
     super
-    console.log @
 
   getPathStr: (curId, defColl)->
     "#{@driver.pathStr}#" + @path.map(({name, query})-> "#{name}:#{if query then query else curId}").join('/') + "/#{defColl}"
