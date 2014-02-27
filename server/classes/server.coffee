@@ -5,7 +5,7 @@ BaseCollection = require './base_collection'
 Pasture = require './pasture'
 Client = require './client'
 
-{Socket} = require '../webserver'
+{Socket, Server:WebServer} = require '../webserver'
 Logger = require '../logger'
 
 class Server extends BaseClass
@@ -46,8 +46,8 @@ class Server extends BaseClass
 
 
   initSocket: ->
+    WebServer.start @config.webserverPort
     Socket.onUserConnect (socket)=>
-      #socket.on 'message', -> console.log 333333, arguments
       cl = new Client socket, @
       @_clients.add cl
       cl.on 'disconnect', => cl.close()
@@ -60,7 +60,7 @@ class Server extends BaseClass
 
 
   start: ->
-    @logger.debug 'Start with config', @config
+    @logger.debug 'Start with config\n', @config
     unless @_startPromise
       @initSocket()
       @_startPromise = @getResolvedPromise()

@@ -18,14 +18,11 @@ app.use '/static', express.static publicdir
 server = require("http").createServer(app)
 io = io.listen(server)
 io.set 'log level', 1
-#io.on "connection", (socket)->
-#  console.log socket
-#  socket.on 'hui', ->
-#    console.log 1111
 
-server.listen 3000
+
 
 class Server extends BaseClass
+  @start: (port = 3000)-> server.listen port
 
 
 class Socket extends BaseClass

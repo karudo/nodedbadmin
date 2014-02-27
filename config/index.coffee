@@ -1,7 +1,7 @@
 module.exports =
   configPath: __dirname
   logLevel: 'debug'
-  httpPost: 3000
+  webserverPort: 3000
 ###
 class Type
   @code: (s)->
