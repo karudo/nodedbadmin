@@ -1,7 +1,7 @@
 {
   "name": "nodedbadmin",
-  "version": "0.0.0",
-  "description": "nodedbadmin - tool for db manipulation",
+  "version": "0.0.1",
+  "description": "nodeDBAdmin - mysql (and other databases in future) database administration software",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,11 +13,15 @@
   "bin": {
     "nodedbadmin": "./index.js"
   },
-  "author": "Deonis Peretyagin",
+  "author": {
+    "name": "Deonis Peretyagin",
+    "email": "karudo@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/karudo/nodedbadmin/issues"
   },
+  "keywords": ["ui", "databases", "mysql", "admin"],
   "homepage": "https://github.com/karudo/nodedbadmin",
   "dependencies": {
     "rsvp": "~3.0.6",
