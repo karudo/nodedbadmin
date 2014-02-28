@@ -1,10 +1,12 @@
 AppClass = Ember.Application.extend
-  LOG_ACTIVE_GENERATION: true
-  LOG_MODULE_RESOLVER: true
-  LOG_TRANSITIONS: true
-  LOG_TRANSITIONS_INTERNAL: true
-  LOG_VIEW_LOOKUPS: true
+  LOG_ACTIVE_GENERATION: ENV.DEBUG
+  LOG_MODULE_RESOLVER: ENV.DEBUG
+  LOG_TRANSITIONS: ENV.DEBUG
+  LOG_TRANSITIONS_INTERNAL: ENV.DEBUG
+  LOG_VIEW_LOOKUPS: ENV.DEBUG
 
-  log: -> console.error new Date()+'', arguments...
+  log: ->
+    if ENV.DEBUG
+      console.error new Date()+'', arguments...
 
 module.exports =  AppClass.create()

@@ -8,12 +8,20 @@ module.exports =
       dest: "public"
     ]
   ###
-  html:
+  htmlDist:
     files: [
       expand: yes
       flatten: yes
       cwd: "client/"
-      src: ["index.html", "style.css", "config/environment.js"]
+      src: ["index.html", "style.css", "config/dist/environment.js"]
+      dest: "public"
+    ]
+  htmlDebug:
+    files: [
+      expand: yes
+      flatten: yes
+      cwd: "client/"
+      src: ["index.html", "style.css", "config/debug/environment.js"]
       dest: "public"
     ]
   vendors:

@@ -20,12 +20,16 @@ module.exports = (grunt)->
 
   grunt.loadTasks 'grunt/tasks'
 
-  grunt.registerTask 'copyFiles', ['copy:html', 'copy:vendors']
+  grunt.registerTask 'copyFilesDebug', ['copy:htmlDebug', 'copy:vendors']
+  grunt.registerTask 'copyFilesDist', ['copy:htmlDist', 'copy:vendors']
 
-  grunt.registerTask 'default', "Build (in debug mode)", ['emberTemplates', 'buildScripts', 'copyFiles']
+  grunt.registerTask 'compileAll', ['emberTemplates', 'buildScripts']
+
+  grunt.registerTask 'default', "Build (in debug mode)", ['compileAll', 'copyFilesDebug']
   grunt.registerTask 'buildTemplates', ['emberTemplates:debug']
   grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify']
   grunt.registerTask 'develop', ['default', 'watch']
+  grunt.registerTask 'dist', 'Build dist', ['compileAll', 'copyFilesDist']
 
 
   grunt.initConfig(config)
