@@ -1,6 +1,24 @@
 module.exports = Ember.Controller.extend
   appName: "nodedbadmin"
 
+  errorOpen: no
+  errorText: 'no error'
+
+  firstEnterOpen: no
+  emptyConntectionsOpen: (->
+    @get('firstEnterOpen') and (@get('firstRoute') is 'index') and (@get('connections.length') < 1)
+  ).property 'firstRoute', 'connections.@each', 'firstEnterOpen'
+
+  init: ->
+    @_super()
+    setTimeout (=> @set 'firstEnterOpen', yes), 1500
+    App.server.on 'error', (err)=>
+      if err.reason
+        @set 'errorText', err.reason
+      else
+        @set 'errorText', err
+      @set 'errorOpen', yes
+
   secondDropDownItems: (->
     pastureId = @get 'pastureId'
     if pastureId
@@ -19,4 +37,8 @@ module.exports = Ember.Controller.extend
         if ddItem
           App.Collection.getByPath(ddItem.defPath).queryModel()
   ).property 'secondDropDownId', 'secondDropDownItems.@each'
+
+  actions:
+    closeError: -> @toggleProperty 'errorOpen'
+    closeFirstEnter: -> @toggleProperty 'firstEnterOpen'
 

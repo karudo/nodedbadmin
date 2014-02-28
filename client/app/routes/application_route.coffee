@@ -17,7 +17,8 @@ ApplicationRoute = Ember.Route.extend
       curCollPath: path
 
 
-  setupController: (controller, models)->
+  setupController: (controller, models, transition)->
+    models.firstRoute = transition.targetName
     controller.setProperties(models)
 
 

@@ -9,10 +9,28 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>{{#link-to 'collection' 'system%23pastures' (query-params pageNum=1)}}Edit connections{{/link-to}}</li>
+                <li>{{#link-to 'collection' 'system%23pastures' (query-params pageNum=1)}}Edit connections <span class="badge">{{connections.length}}</span>{{/link-to}}</li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
+    {{#if errorOpen}}
+    <div class="error-message">
+        <div class="alert alert-danger fade in">
+            <button type="button" class="close" aria-hidden="true" {{action 'closeError'}}>×</button>
+            <h4>Error!</h4>
+            <p>{{errorText}}</p>
+        </div>
+    </div>
+    {{/if}}
+    {{#if emptyConntectionsOpen}}
+    <div class="error-message" style="right: 0">
+        <div class="alert alert-warning fade in">
+            <button type="button" class="close" aria-hidden="true" {{action 'closeFirstEnter'}}>×</button>
+            <h4>No connections!</h4>
+            <p>You need to add one or mode connections</p>
+        </div>
+    </div>
+    {{/if}}
 </div>
 <div class="container-fluid" style="margin-top: 55px;">
     <div class="row">

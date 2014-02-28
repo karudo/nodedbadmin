@@ -13,3 +13,8 @@
 .pointer {
     cursor: pointer;
 }
+.error-message {
+    min-width: 300px;
+    position: absolute;
+    padding: 10px;
+}

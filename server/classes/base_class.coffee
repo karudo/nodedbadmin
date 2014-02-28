@@ -1,12 +1,7 @@
 {EventEmitter} = require 'events'
 {clone, isFunction, extend} = require '../utils/_'
 {Promise} = promise = require '../promise'
-
-class BaseError extends Error
-  constructor: ({@reason, @classPath, @task})->
-    super @reason
-
-
+BaseError = require './base_error'
 
 
 class BaseClass extends EventEmitter

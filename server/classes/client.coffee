@@ -1,9 +1,12 @@
 {join} = require 'path'
 fs = require '../utils/fs'
 BaseClass = require './base_class'
+BaseError = require './base_error'
 
 aerr = (err, logger)->
   logger.error 'collection:exec:method', err
+  unless err instanceof BaseError
+    err = reason: "#{err}"
   err
 
 class Client extends BaseClass

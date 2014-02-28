@@ -23,7 +23,7 @@ class MysqlCollection extends BaseDbCollection
       conn.queryPromise = denodeify(conn.query, conn)
       conn
     ), (err)=>
-      throw @getError 'getConnectionPromise', "#{err}"
+      throw @getError 'mysql connect', "#{err}"
 
 
   escapeId: (id)-> mysql.escapeId(id)
