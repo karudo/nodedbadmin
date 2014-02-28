@@ -61,11 +61,12 @@ class Server extends BaseClass
 
 
   initSocket: ->
-    WebServer.start @config.webserverPort
-    Socket.onUserConnect (socket)=>
-      cl = new Client socket, @
-      @_clients.add cl
-      cl.on 'disconnect', => cl.close()
+    WebServer.start(@config.webserverPort, @config.webserverHost).then (ws)=>
+      @websocket = ws
+      @websocket.onUserConnect (socket)=>
+        cl = new Client socket, @
+        @_clients.add cl
+        cl.on 'disconnect', => cl.close()
 
 
   registerGlobals: ->
@@ -77,9 +78,9 @@ class Server extends BaseClass
   start: ->
     @logger.debug 'Start with config\n', @config
     unless @_startPromise
-      @initSocket()
       @_startPromise = @getResolvedPromise()
       .then(=> @registerGlobals())
+      .then(=> @initSocket())
       .then(=> @loadDrivers())
       .then(=> @loadPastures())
     @_startPromise
@@ -116,15 +117,6 @@ class Server extends BaseClass
           #  delete @_connectedDrivers[pasture.id]
 
         @_connectedDrivers[pasture.id]
-
-###
-@socket.on 'querycollection', (collPath, params, cb)->
-  @getPasture('pas0').then (driver)->
-    driver.getCollection(collPath).then (collection)->
-      prom = collection.query(params)
-      cb prom._id
-      @promiseManager.add(prom)
-###
 
 
 

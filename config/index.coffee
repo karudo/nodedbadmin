@@ -3,6 +3,8 @@ userHomeDir = process.env.HOME or process.env.HOMEPATH or process.env.USERPROFIL
 
 module.exports =
   configPath: path.join userHomeDir,'./.config/nodedbadmin'
-  logLevel: 'warn'
-  webserverPort: 3000
+  logLevel: 'info'
+  webserverPort: 4242
+  webserverHost: '0.0.0.0'
+
 

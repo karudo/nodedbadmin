@@ -38,5 +38,14 @@ denodeify = (nodeFunc, binding) ->
         reject e
 
 
+defer = (label) ->
+  deferred = {}
+  deferred.promise = new Promise((resolve, reject) ->
+    deferred.resolve = resolve
+    deferred.reject = reject
+  , label)
+  deferred
 
-module.exports = {Promise, denodeify, decallback}
+
+
+module.exports = {Promise, denodeify, decallback, defer}

@@ -35,13 +35,19 @@ class Logger
   @colorize: (color, str)->
     colorize color, str
 
-  log: (level, args...)->
+  _log: (check, level, args...)->
     level = 'warn' unless level and @levels[level]
-    return if @levels[level] > @curLevelNum
+    return if check and @levels[level] > @curLevelNum
     curTime = (new Date).toTimeString().split(' ')[0]
     str = "[#{colorize(@colors[level], level)}]"
     str += " #{colorize('grey', curTime)} "
     console.log str, args...
+
+  log: (args...)->
+    @_log yes, args...
+
+  logAll: (args...)->
+    @_log no, args...
 
   debug: (args...)-> @log 'debug', args...
   info: (args...)-> @log 'info', args...
