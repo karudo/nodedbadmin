@@ -22,8 +22,10 @@ class MysqlTableRowCollection extends MysqlCollection
 
 
   getByPk: (pk)->
-    sql = "SELECT * FROM ?? WHERE id=?"
-    @_query(sql, [@tableName, pk]).then ([result])-> result[0]
+    @getStructure().then (struct)=>
+      sql = "SELECT * FROM ?? WHERE ??=?"
+      @_query(sql, [@tableName, struct.pkFields, pk]).then ([result])-> result[0]
+
 
   getStructure: ->
     @_query('DESCRIBE ??', [@tableName]).then ([result])->
@@ -35,6 +37,35 @@ class MysqlTableRowCollection extends MysqlCollection
           ret.canEdit = no
         ret
       {fields, pkFields}
+
+
+  updateByPk: (pk, fields)->
+    @getStructure().then (struct)=>
+      vars = [@tableName]
+      sql = "UPDATE ?? SET "
+
+      for k, v of fields
+        sql += " ??=? "
+        vars.push k
+        vars.push v
+      sql += " WHERE ??=?"
+      vars.push struct.pkFields
+      vars.push pk
+
+      @_query sql, vars
+
+
+  add: (fields)->
+    @getStructure().then (struct)=>
+      vars1 = []
+      vars2 = []
+      for k, v of fields
+        vars1.push k
+        vars2.push v
+      sql = "INSERT INTO ?? (#{vars1.map(->'??')}) VALUES (#{vars1.map(->'?')})"
+      @_query(sql, [@tableName].concat(vars1, vars2)).then ([{insertId}])->
+        insertId
+
 
 
 module.exports = MysqlTableRowCollection
