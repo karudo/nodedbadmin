@@ -1,7 +1,7 @@
 nodedbadmin
 ===========
 
-nodedbadmin - mysql (and other databases in future) database administration software (like phpMyAdmin, but on node.js).
+nodeDBAdmin - mysql (and other databases in future) database administration software (like phpMyAdmin, but on node.js).
 
 It's single page application uses express, socket.io on server and ember.js on client.
 
