@@ -47,8 +47,9 @@ class Server extends BaseClass
           []
     ).then (pastures)=>
       pasObj = Pasture.fromArray pastures
-      pasObj.on 'added', (item)=> delete @_connectedDrivers[item.id]
-      pasObj.on 'changed', (item)=> delete @_connectedDrivers[item.id]
+      pasObj.on 'added', (item)=> delete @_connectedDrivers[item.id] if @_connectedDrivers[item.id]
+      pasObj.on 'changed', (item)=> delete @_connectedDrivers[item.id] if @_connectedDrivers[item.id]
+      pasObj.on 'deleted', (item)=> delete @_connectedDrivers[item.id] if @_connectedDrivers[item.id]
       pasObj.on 'itemsChanged', =>
         items = pasObj._items
         fileData = JSON.stringify items, null, "  "

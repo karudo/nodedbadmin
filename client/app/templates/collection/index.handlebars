@@ -11,7 +11,12 @@
 <tbody>
 {{#each row in acont}}
     <tr>
-        <td>{{#link-to 'collection.edit' (query-params pk=row.pk)}}edit{{/link-to}}</td>
+        {{#if row.pk}}
+        <td>
+            {{#link-to 'collection.edit' (query-params pk=row.pk)}}<span class="glyphicon glyphicon-edit"></span>{{/link-to}}
+            <span class="glyphicon glyphicon-remove pointer" {{action 'removeRow' row.pk}}></span>
+        </td>
+        {{/if}}
         {{#each col in row}}
             <td>{{col}}</td>
         {{/each}}

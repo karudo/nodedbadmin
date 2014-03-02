@@ -34,7 +34,7 @@ server.execCollectionMethod = (fullCollPath, method, params...)->
       if id
         IDS[id] = defer
       else
-        defer.reject("empty id '#{id}'")
+        defer.reject("empty promise id '#{id}'")
 
   defer.promise
 

@@ -53,8 +53,18 @@ class BaseCollection extends BaseClass
       @getResolvedPromise()
 
 
+  deleteByPk: (pk)->
+    @getByPk(pk).then (item)=>
+      idx = @_items.indexOf item
+      if idx >= 0
+        @_items.splice idx, 1
+      @emit 'deleted', item
+      @emit 'itemsChanged'
+      idx >= 0
+
+
   query: (params = {})->
-    arr = clone(if params.query then filter(@_items, params.query) else @_items)
+    arr = if params.query then filter(@_items, params.query) else @_items
     @getResolvedPromise (if @mapArr then @mapArr arr else arr), 'query'
 
 

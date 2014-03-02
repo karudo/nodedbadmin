@@ -37,7 +37,7 @@ Collection = Ember.Object.extend
 
 
 objForExtend = {}
-for m in ['count', 'getStructure', 'getByPk', 'updateByPk', 'add']
+for m in ['count', 'getStructure', 'getByPk', 'updateByPk', 'add', 'deleteByPk']
   objForExtend[m] = do(m)->
     (params...)-> App.server.execCollectionMethod(@path, m, params...)
 Collection.reopen objForExtend

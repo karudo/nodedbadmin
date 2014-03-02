@@ -14,3 +14,6 @@ module.exports = Ember.ArrayController.extend
         content: content
         pk: v.id
   ).property 'content', 'content.headers'
+  actions:
+    premoveRow:->
+      @deleteByPk

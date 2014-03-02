@@ -17,12 +17,18 @@ CollectionIndexRoute = Ember.Route.extend
       content.setProperties
         headers: structure.fields.map (f)-> f.name
         allCount: allCount
+        collectionPath: path
       content
 
 
   actions:
     queryParamsDidChange: ->
       @refresh()
+    removeRow: (pk)->
+      if confirm 'Delete?'
+        path = @get 'controller.content.collectionPath'
+        App.Collection.getByPath(path).deleteByPk(pk).then =>
+          @refresh()
 
 
 module.exports = CollectionIndexRoute
