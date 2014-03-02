@@ -42,15 +42,15 @@ class MysqlTableRowCollection extends MysqlCollection
   updateByPk: (pk, fields)->
     @getStructure().then (struct)=>
       vars = [@tableName]
-      sql = "UPDATE ?? SET "
 
       for k, v of fields
-        sql += " ??=? "
         vars.push k
         vars.push v
-      sql += " WHERE ??=?"
+
       vars.push struct.pkFields
       vars.push pk
+
+      sql = "UPDATE ?? SET #{(Object.keys(fields).map(->'??=?')).join(',')} WHERE ??=?"
 
       @_query sql, vars
 

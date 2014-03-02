@@ -7,13 +7,11 @@ module.exports = Ember.ArrayController.extend
   acont: (->
     cont = @get 'content'
     headers = @get 'content.headers'
+    pkFields = @get 'content.pkFields'
     cont.map (v)->
       content = for h in headers
         v[h] or ''
       Em.ArrayProxy.create
         content: content
-        pk: v.id
+        pk: v[pkFields]
   ).property 'content', 'content.headers'
-  actions:
-    premoveRow:->
-      @deleteByPk

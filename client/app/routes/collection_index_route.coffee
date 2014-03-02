@@ -18,6 +18,7 @@ CollectionIndexRoute = Ember.Route.extend
         headers: structure.fields.map (f)-> f.name
         allCount: allCount
         collectionPath: path
+        pkFields: structure.pkFields
       content
 
 
