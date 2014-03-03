@@ -66,6 +66,7 @@ class MysqlTableRowCollection extends MysqlCollection
       @_query(sql, [@tableName].concat(vars1, vars2)).then ([{insertId}])->
         insertId
 
+
   deleteByPk: (pk)->
     @getStructure().then (struct)=>
       sql = 'DELETE FROM ?? WHERE ??=?'
