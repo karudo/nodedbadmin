@@ -4,55 +4,37 @@
 </div>
 <aside class="left-panel">
     <div>
-        <select>
-            <option>sssss</option>
-        </select>
+        {{view Ember.Select contentBinding="connections"
+        value=pastureId
+        prompt="Select connection"
+        optionValuePath="content.id"
+        optionLabelPath="content.name"}}
     </div>
+    {{#if secondDropDownItems}}
     <div>
-        <select>
-            <option>sss</option>
-        </select>
+        {{view Ember.Select contentBinding="secondDropDownItems"
+        value=secondDropDownId
+        prompt="Select database"
+        optionValuePath="content.id"
+        optionLabelPath="content.name"}}
     </div>
+    {{/if}}
+    {{left-menu items=leftMenuItems curPath=curCollPath}}
 </aside>
 <div class="wrapper">
     <main class="content">{{outlet}}</main>
 </div>
-<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                {{select-drop-down tagName="li" defaultName="Select connection" items=connections selectedId=pastureId}}
-                {{#if secondDropDownItems}}
-                    {{select-drop-down tagName="li" defaultName="Select database" items=secondDropDownItems selectedId=secondDropDownId}}
-                {{/if}}
-
-            </ul>
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-    {{#if errorOpen}}
-    <div class="error-message">
-        <div class="alert alert-danger fade in">
-            <button type="button" class="close" aria-hidden="true" {{action 'closeError'}}>×</button>
-            <h4>Error!</h4>
-            <p>{{errorText}}</p>
-        </div>
-    </div>
-    {{/if}}
-    {{#if emptyConntectionsOpen}}
-    <div class="error-message" style="right: 0">
-        <div class="alert alert-warning fade in">
-            <button type="button" class="close" aria-hidden="true" {{action 'closeFirstEnter'}}>×</button>
-            <h4>No connections!</h4>
-            <p>You need to add one or mode connections</p>
-        </div>
-    </div>
-    {{/if}}
+{{#if errorOpen}}
+<div class="balloon error">
+    <div class="closer"><a href="" {{action 'closeError'}}><i class="glyphicon glyphicon-remove"></i></a></div>
+    <div class="header">Error</div>
+    <div class="content">{{errorText}}</div>
 </div>
-<div class="container-fluid" style="margin-top: 55px;">
-    <div class="row">
-        <div class="col-md-1 left-menu-col">
-            {{left-menu items=leftMenuItems curPath=curCollPath}}
-        </div>
-        <div class="col-md-11"></div>
+{{/if}}
+{{#if emptyConntectionsOpen}}
+    <div class="balloon right arrow-right">
+        <div class="closer"><a href="" {{action 'closeFirstEnter'}}><i class="glyphicon glyphicon-remove"></i></a></div>
+        <div class="header">No connections</div>
+        <div class="content">You need to add one or mode connections</div>
     </div>
-</div>
+{{/if}}

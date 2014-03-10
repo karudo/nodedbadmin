@@ -1,19 +1,15 @@
-{{#if showPaginator}}
-    <ul class="pagination pagination-sm" style="margin: 0">
-        {{#if pFirst}}
-            <li>{{#link-to (query-params pageNum=pFirst)}}&laquo;{{/link-to}}</li>
-        {{/if}}
-        {{#if pPrev}}
-            <li>{{#link-to (query-params pageNum=pPrev)}}&lt;{{/link-to}}</li>
-        {{/if}}
-        {{#each pages}}
-            <li {{bind-attr class="active"}}>{{link-to pageNum (query-params pageNum=pageNum)}}</li>
-        {{/each}}
-        {{#if pNext}}
-            <li>{{#link-to (query-params pageNum=pNext)}}&gt;{{/link-to}}</li>
-        {{/if}}
-        {{#if pLast}}
-            <li>{{#link-to (query-params pageNum=pLast)}}&raquo;{{/link-to}}</li>
-        {{/if}}
-    </ul>
+{{#if pFirst}}
+    {{link-to pFirst (query-params pageNum=pFirst)}}
+{{/if}}
+{{#if pPrev}}
+    {{#link-to (query-params pageNum=pPrev)}}<i class="glyphicon glyphicon-arrow-left"></i>{{/link-to}}
+{{/if}}
+{{#each pages}}
+    {{link-to pageNum (query-params pageNum=pageNum) class=active}}
+{{/each}}
+{{#if pNext}}
+    {{#link-to (query-params pageNum=pNext)}}<i class="glyphicon glyphicon-arrow-right"></i>{{/link-to}}
+{{/if}}
+{{#if pLast}}
+    {{link-to pLast (query-params pageNum=pLast)}}
 {{/if}}
