@@ -17,15 +17,17 @@ module.exports = (grunt)->
   #grunt.loadNpmTasks 'grunt-browserify2'
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-contrib-less'
 
   grunt.loadTasks 'grunt/tasks'
 
   grunt.registerTask 'copyFilesDebug', ['copy:htmlDebug', 'copy:vendors']
   grunt.registerTask 'copyFilesDist', ['copy:htmlDist', 'copy:vendors']
 
-  grunt.registerTask 'compileAll', ['emberTemplates', 'buildScripts']
+  grunt.registerTask 'compileAll', ['emberTemplates', 'buildScripts', 'buildLess']
 
   grunt.registerTask 'default', "Build (in debug mode)", ['compileAll', 'copyFilesDebug']
+  grunt.registerTask 'buildLess', ['less']
   grunt.registerTask 'buildTemplates', ['emberTemplates:debug']
   grunt.registerTask 'buildScripts', ['clean:tmp', 'createIndex', 'coffee', 'browserify']
   grunt.registerTask 'develop', ['default', 'watch']

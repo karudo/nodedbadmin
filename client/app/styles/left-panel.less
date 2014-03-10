@@ -1,0 +1,44 @@
+.left-panel {
+  @background-color: #c7ced7;
+  @border-width: 1px;
+  position: fixed;
+  top: 1px + @top-menu-height;
+  left: 0px;
+  width: @left-panel-width - @border-width;
+  height: calc(~"100%" - @top-menu-height);
+  background: @background-color;
+  border-right: @border-width solid #9f9f9f;
+  overflow: auto;
+  div {
+    margin: 2px;
+    select {
+      width: 100%;
+    }
+  }
+  a {
+    @height: 22px;
+    @font-size: 11px;
+    color: #000000;
+
+    display: block;
+    font-size: @font-size;
+    height: @height;
+    text-decoration: none;
+    padding-left: 15px;
+    overflow-x: hidden;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background: @background-color;
+    line-height: @height;
+    white-space: nowrap;
+    &.active {
+      background: linear-gradient(to top, #2862AF, #0ab0dc);
+      color: #ffffff;
+      font-weight: bold;
+    }
+    i {
+      color: #fff361;
+      font-size: @font-size * 1.25;
+    }
+  }
+}

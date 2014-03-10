@@ -1,19 +1,10 @@
 module.exports =
-  ###
-  appjs2public:
-    files: [
-      expand: yes
-      cwd: "tmp"
-      src: ["app.js"]
-      dest: "public"
-    ]
-  ###
   htmlDist:
     files: [
       expand: yes
       flatten: yes
       cwd: "client/"
-      src: ["index.html", "style.css", "config/dist/environment.js"]
+      src: ["index.html", "config/dist/environment.js"]
       dest: "public"
     ]
   htmlDebug:
@@ -21,7 +12,7 @@ module.exports =
       expand: yes
       flatten: yes
       cwd: "client/"
-      src: ["index.html", "style.css", "config/debug/environment.js"]
+      src: ["index.html", "config/debug/environment.js"]
       dest: "public"
     ]
   vendors:
@@ -42,8 +33,8 @@ module.exports =
       {
         expand: yes
         #flatten: yes
-        cwd: "client/vendor/bower/bootstrap/dist"
-        src: ["**/*"]
-        dest: "public/bootstrap"
+        cwd: "client/vendor/bower/bootstrap/dist/fonts"
+        src: ["*"]
+        dest: "public/fonts"
       }
     ]

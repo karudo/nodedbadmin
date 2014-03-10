@@ -1,14 +1,14 @@
-<form class="form-horizontal" role="form">
-{{#each showFields}}
-    <div class="form-group">
-        <label {{bind-attr for=domId}} class="col-sm-2 control-label">{{name}}</label>
-        {{view viewClass value=value}}
+<form class="edit-form">
+    <div class="fields">
+        {{#each showFields}}
+            <div>
+                <label {{bind-attr for=domId}}>{{name}}</label>
+                <div>{{view viewClass value=value}}</div>
+            </div>
+        {{/each}}
     </div>
-{{/each}}
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button {{action 'save'}} type="submit" class="btn btn-success" {{bind-attr disabled=saveDisabled}}>Save</button>
-            <button {{action 'cancel'}} type="submit" class="btn btn-default">Cancel</button>
-        </div>
+    <div class="buttons">
+        <button {{action 'save'}} type="submit" class="btn btn-success" {{bind-attr disabled=saveDisabled}}>Save</button>
+        <button {{action 'cancel'}} type="submit" class="btn btn-default">Cancel</button>
     </div>
 </form>

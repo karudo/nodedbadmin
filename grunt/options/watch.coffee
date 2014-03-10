@@ -10,3 +10,7 @@ module.exports =
   static:
     files: ['client/*.{css,html}']
     tasks: ['copy:html']
+
+  less:
+    files: ['client/app/styles/*.less']
+    tasks: ['less']

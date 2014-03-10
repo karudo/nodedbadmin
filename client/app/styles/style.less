@@ -1,0 +1,110 @@
+@import "reset.less";
+@import "vars.less";
+@import "glyphicons.less";
+@import "balloon.less";
+@import "top-menu.less";
+@import "left-panel.less";
+
+html {
+  height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  display: block;
+}
+body {
+  font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+  height: 100%;
+  background-color: #dfdfdf;
+}
+.wrapper {
+  width: 100%;
+  min-width: 1000px;
+}
+
+.content {
+  padding: @top-menu-height+1px 0 0 @left-panel-width;
+}
+
+.big-icons-panel {
+  height: 50px;
+  background: linear-gradient(to top, #969696, #d7d7d9);
+  font-size: 11px;
+}
+
+table.list {
+  @cell-hor-padding: 2px;
+  @cell-border-style: 1px solid #a1a1a1;
+  border-top: 1px solid #7a7a7a;
+  width: 100%;
+  th {
+    text-align: left;
+    text-transform: uppercase;
+    background: linear-gradient(to top, #e7e7e7, #f4f4f4);
+    border-right: @cell-border-style;
+    border-bottom: @cell-border-style;
+    padding-left: @cell-hor-padding;
+    padding-right: @cell-hor-padding;
+  }
+  tbody {
+    tr:nth-child(odd) {
+      > td {
+        background-color: #e6eaef;
+      }
+    }
+    td {
+      background-color: #ffffff;
+      border-right: @cell-border-style;
+      padding-left: @cell-hor-padding;
+      padding-right: @cell-hor-padding;
+    }
+  }
+}
+
+.edit-form {
+  @goriz-margin: 40px;
+  width: calc(~"100%" - (@goriz-margin*2));
+  margin-top: 20px;
+  margin-left: @goriz-margin;
+  .fields {
+    background-color: #d4d5d5;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    > div {
+      @label-min-width: 150px;
+      @label-margin: 8px;
+      @div-margin: 5px;
+      height: 34px;
+      width: 100%;
+      > label {
+        min-width: @label-min-width;
+        width: 10%;
+        margin: @label-margin;
+        text-align: right;
+        float: left;
+      }
+      > div {
+        float: left;
+        margin: @div-margin;
+        max-width: calc(~"100%" - (@label-min-width + @div-margin*2 + @label-margin*2));
+        width: calc(~"90%" - (@div-margin*2 + @label-margin*2));
+        input {
+          width: 99%;
+          font-size: 12px;
+          border-radius: 3px;
+          border-width: 1px;
+          &[disabled] {
+            cursor: not-allowed;
+            background-color: #ddd;
+          }
+        }
+      }
+    }
+  }
+  .buttons {
+    margin-top: 4px;
+    button {
+      width: 100px;
+      font-size: 13px;
+    }
+  }
+}

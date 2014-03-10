@@ -1,3 +1,22 @@
+<div class="top-menu">
+    <span class="logo"><i class="glyphicon glyphicon-cog"></i> nodeDBAdmin</span>
+    {{#link-to 'collection' 'system%23pastures' (query-params pageNum=1) class="right"}}Edit connections{{/link-to}}
+</div>
+<aside class="left-panel">
+    <div>
+        <select>
+            <option>sssss</option>
+        </select>
+    </div>
+    <div>
+        <select>
+            <option>sss</option>
+        </select>
+    </div>
+</aside>
+<div class="wrapper">
+    <main class="content">{{outlet}}</main>
+</div>
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
@@ -7,9 +26,6 @@
                     {{select-drop-down tagName="li" defaultName="Select database" items=secondDropDownItems selectedId=secondDropDownId}}
                 {{/if}}
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>{{#link-to 'collection' 'system%23pastures' (query-params pageNum=1)}}Edit connections <span class="badge">{{connections.length}}</span>{{/link-to}}</li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
@@ -37,6 +53,6 @@
         <div class="col-md-1 left-menu-col">
             {{left-menu items=leftMenuItems curPath=curCollPath}}
         </div>
-        <div class="col-md-11">{{outlet}}</div>
+        <div class="col-md-11"></div>
     </div>
 </div>

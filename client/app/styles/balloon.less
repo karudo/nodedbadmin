@@ -1,0 +1,95 @@
+.balloon {
+  @width: 400px;
+  @height: 100px;
+  @background-color: #c8dfec;
+  @border-width: 2px;
+  @border-color: #4aacd0;
+  @arrow-left: 10px;
+  @arrow-right: @width - 40px;
+
+  width: @width;
+  min-height: @height;
+
+  position: fixed;
+  top: 34px;
+  left: 270px;
+
+  background-color: @background-color;
+  border: @border-width solid @border-color;
+  border-radius: @border-width * 3;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    bottom: 100%;
+  }
+  &:before {
+    border-color: @border-color transparent;
+    border-width: 0 10px 14px;
+    left: @arrow-left;
+  }
+  &:after {
+    border-color: @background-color transparent;
+    border-width: 0px 8px 11px;
+    left: @arrow-left + 2px;
+  }
+  &.right {
+    left: initial;
+    right: 20px;
+  }
+  &.arrow-right {
+    &:before {
+      left: @arrow-right;
+    }
+    &:after {
+      left: @arrow-right + 2;
+    }
+  }
+  .header {
+    padding-top: 4px;
+    padding-left: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: @border-width * 2 @border-width * 2 0 0;
+  }
+  .content {
+    padding: 4px;
+    border-radius: 0 0 @border-width * 2 @border-width * 2;
+    color: #275a7b;
+  }
+  .closer {
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    font-size: 14px;
+    a {
+      text-decoration: none;
+      color: #000000;
+      &:hover {
+        color: @border-color;
+      }
+    }
+  }
+
+  &.error {
+    @border-color: #c63b3c;
+    @background-color: #e5cdce;
+    border-color: @border-color;
+    background-color: @background-color;
+    &:before {
+      border-color: @border-color transparent;
+    }
+    &:after {
+      border-color: @background-color transparent;
+    }
+    .content {
+      color: #923132;
+    }
+    a:hover {
+      color: @border-color;
+    }
+  }
+}
