@@ -9,9 +9,7 @@ module.exports = Ember.ArrayController.extend
     headers = @get 'content.headers'
     pkFields = @get 'content.pkFields'
     cont.map (v)->
-      content = for h in headers
-        v[h] or ''
       Em.ArrayProxy.create
-        content: content
+        content: (v[h] for h in headers)
         pk: v[pkFields]
-  ).property 'content', 'content.headers'
+  ).property 'content', 'content.headers', 'content.pkFields'
