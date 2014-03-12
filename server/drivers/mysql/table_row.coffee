@@ -17,7 +17,7 @@ class MysqlTableRowCollection extends MysqlCollection
 
 
   count: ()->
-    sql = "SELECT COUNT(*) as cnt FROM ??"
+    sql = "SELECT COUNT(1) as cnt FROM ??"
     @_query(sql, [@tableName]).then ([result])-> result[0].cnt
 
 
