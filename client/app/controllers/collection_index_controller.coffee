@@ -2,7 +2,7 @@
 module.exports = Ember.ArrayController.extend
   queryParams: ['pageNum', 'pageSize']
   pageNum: 1
-  pageSize: 25
+  pageSize: 50
 
   acont: (->
     cont = @get 'content'
