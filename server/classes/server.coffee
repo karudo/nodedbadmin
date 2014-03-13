@@ -4,6 +4,7 @@ BaseClass = require './base_class'
 BaseCollection = require './base_collection'
 Pasture = require './pasture'
 Client = require './client'
+BaseDriver = require './base_driver'
 
 {Socket, Server:WebServer} = require '../webserver'
 Logger = require '../logger'
@@ -24,13 +25,17 @@ class Server extends BaseClass
     fs.readdirPromise(join(__dirname,'../drivers')).then (dirs)=>
       driversColl = []
       for d in dirs
-        @_drivers[d] = require join '../drivers', d
+        driverObj = require join '../drivers', d
+        continue unless (driverObj?.class::) instanceof BaseDriver
+        @_drivers[d] = driverObj
         driversColl.push {id: d, name: d}
       @_collections.drivers = BaseCollection.fromArray driversColl
       @_drivers
 
+
   configPath: (path = @config.configPath)->
     fs.mkdirFullPromise(path)
+
 
   loadPastures: ->
     pastureFile = null

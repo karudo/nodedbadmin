@@ -38,8 +38,8 @@ class MysqlCollection extends BaseDbCollection
       for f in @initFuncs
         connProm = connProm.then f
     connProm.then (conn)=>
-      conn.queryPromise(query).then (r)->
+      conn.queryPromise(query).then (result)->
         conn.release() if autorelease
-        r
+        result
 
 module.exports = MysqlCollection

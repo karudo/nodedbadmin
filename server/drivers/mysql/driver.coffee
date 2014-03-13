@@ -1,6 +1,4 @@
-mysql = require 'mysql'
 {BaseDriver} = nodedbadmin.classes
-{denodeify} = nodedbadmin.promise
 
 MysqlDatabaseCollection = require './database'
 MysqlTableCollection = require './table'

@@ -13,7 +13,7 @@ for key, value of fs
 
 newFs.mkdirFullPromise = (fullPath, mode = 0o700)->
   pathArr = fullPath.split '/'
-  pathArr = pathArr.filter (el)-> !!el
+  pathArr = pathArr.filter (el)-> ("#{el}").length > 0
 
   pathArr.reduce ((pr, dirName)->
     pr.then (curPath)->
