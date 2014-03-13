@@ -17,6 +17,7 @@ class Pasture extends BaseCollection
       #fkCollection: 'drivers'
       #fkFullPath: 'system#drivers'
     host: 'string'
+    port: 'string'
     user: 'string'
     password: 'string'
 
