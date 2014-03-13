@@ -8,7 +8,7 @@ class Promise extends rsvp.Promise
 
 decallback = (clbFunc, binding)->
   (argsOrig...)->
-    thisArg = @ or binding
+    thisArg = binding or @
     new Promise (resolve, reject) ->
       try
         argsOrig.push (args...)->
@@ -23,7 +23,7 @@ decallback = (clbFunc, binding)->
 
 denodeify = (nodeFunc, binding) ->
   (argsOrig...)->
-    thisArg = @ or binding
+    thisArg = binding or @
     new Promise (resolve, reject) ->
       try
         argsOrig.push (err, args...)->
@@ -37,6 +37,10 @@ denodeify = (nodeFunc, binding) ->
       catch e
         reject e
 
+denodeifyExec = (nodeFunc, binding, params...)->
+  f = denodeify nodeFunc, binding
+  f params...
+
 
 defer = (label) ->
   deferred = {}
@@ -48,4 +52,4 @@ defer = (label) ->
 
 
 
-module.exports = {Promise, denodeify, decallback, defer}
+module.exports = {Promise, denodeify, decallback, defer, denodeifyExec}

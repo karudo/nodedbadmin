@@ -1,5 +1,5 @@
 MongoCollection = require './mongo_collection'
-
+{denodeifyExec} = nodedbadmin.promise
 
 
 class MongoDatabaseCollection extends MongoCollection
@@ -9,12 +9,10 @@ class MongoDatabaseCollection extends MongoCollection
   query: ->
     @connect().then (db)=>
       adminDb = db.admin()
-      @getPromise (resolve, reject)=>
-        adminDb.listDatabases (err, list)=>
-          return reject err if err
-          resolve list.databases.map (i)=>
-            i.id = i.name
-            i.defPath = @getPathStr(i.id, 'collections')
-            i
+      denodeifyExec(adminDb.listDatabases, adminDb).then (list)=>
+        list.databases.map (i)=>
+          i.id = i.name
+          i.defPath = @getPathStr(i.id, 'collections')
+          i
 
 module.exports = MongoDatabaseCollection

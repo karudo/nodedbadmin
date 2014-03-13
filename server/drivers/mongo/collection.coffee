@@ -1,5 +1,5 @@
 MongoCollection = require './mongo_collection'
-
+{denodeifyExec} = nodedbadmin.promise
 
 
 class MongoCollectionCollection extends MongoCollection
@@ -12,14 +12,11 @@ class MongoCollectionCollection extends MongoCollection
 
   query: ->
     @connect(@dbName).then (db)=>
-      @getPromise (resolve, reject)=>
-        db.collectionNames (err, list)=>
-          return reject err if err
-          console.log list
-          resolve list.map (i)=>
-            i.id = i.name.split("#{@dbName}.")[1]
-            i.defPath = @getPathStr(i.id, 'documents')
-            i
+      denodeifyExec(db.collectionNames, db).then (list)=>
+        list.map (i)=>
+          i.id = i.name.split("#{@dbName}.")[1]
+          i.defPath = @getPathStr(i.id, 'documents')
+          i
 
 
 
