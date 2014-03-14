@@ -1,6 +1,6 @@
 {
   "name": "nodedbadmin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "nodeDBAdmin - mysql and mongodb (and other databases in future) database administration software",
   "main": "index.js",
   "scripts": {
@@ -40,7 +40,8 @@
     "express": "~3.4.8",
     "socket.io": "~0.9.16",
     "es6-shim": "~0.9.3",
-    "commander": "~2.1.0"
+    "commander": "~2.1.0",
+    "mongodb": "^1.3.23"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
