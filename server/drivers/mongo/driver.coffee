@@ -2,6 +2,7 @@
 
 MongoDatabaseCollection = require './database'
 MongoCollectionCollection = require './collection'
+MongoDocumentCollection = require './document'
 
 class MongoDriver extends BaseDriver
   @configure 'MongoDriver'
@@ -13,6 +14,10 @@ class MongoDriver extends BaseDriver
         collections:
           name: 'Collections'
           class: MongoCollectionCollection
+          childs:
+            documents:
+              name: 'Documents'
+              class: MongoDocumentCollection
 
   getSchema: -> @schema
 

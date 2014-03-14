@@ -14,6 +14,11 @@ CollectionEditRoute = Ember.Route.extend
       model: modelProm
       structure: coll.getStructure()
     ).then ({model, structure})->
+      unless structure.fields
+        structure.fields = _.keys(model).map (k)->
+          name: k
+          type: 'string'
+          canEdit: k isnt '_id'
       _.extend structure,
         model: model
         modelOrig: _.clone(model)
@@ -22,6 +27,7 @@ CollectionEditRoute = Ember.Route.extend
 
 
   setupController: (controller, props)->
+    App.log props
     controller.setProperties props
 
 

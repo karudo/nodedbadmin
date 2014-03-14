@@ -1,4 +1,5 @@
 MysqlCollection = require './mysql_collection'
+{intval} = nodedbadmin.utils._
 
 class MysqlTableRowCollection extends MysqlCollection
   @configure 'MysqlTableRowCollection'
@@ -10,15 +11,15 @@ class MysqlTableRowCollection extends MysqlCollection
 
 
   query: (params)->
-    pageNum = parseInt (params.pageNum or 0), 10
-    pageSize = parseInt (params.pageSize or 0), 10
+    pageNum = intval params.pageNum
+    pageSize = intval params.pageSize
     sql = "SELECT * FROM ?? LIMIT ?, ?"
     @_query(sql, [@tableName, (pageNum-1)*pageSize, pageSize]).then ([result])-> result
 
 
   count: ()->
     sql = "SELECT COUNT(1) as cnt FROM ??"
-    @_query(sql, [@tableName]).then ([result])-> result[0].cnt
+    @_query(sql, [@tableName]).then ([result])-> parseInt(result[0].cnt, 10)
 
 
   getByPk: (pk)->
@@ -36,7 +37,14 @@ class MysqlTableRowCollection extends MysqlCollection
           pkFields = ret.name
           ret.canEdit = no
         ret
-      {fields, pkFields}
+      {
+        fields
+        pkFields
+        features:
+          addItem: yes
+          updateItem: yes
+          deleteItem: yes
+      }
 
 
   updateByPk: (pk, fields)->

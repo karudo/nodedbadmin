@@ -34,6 +34,10 @@ class BaseCollection extends BaseClass
     @getResolvedPromise
       pkFields: @pkFields
       fields: struct
+      features:
+        addItem: yes
+        updateItem: yes
+        deleteItem: yes
 
 
   add: (item)->

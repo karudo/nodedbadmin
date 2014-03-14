@@ -4,8 +4,6 @@ mysql = require 'mysql'
 {logger} = nodedbadmin
 #{clone} = nodedbadmin.utils._
 
-autorelease = yes
-
 class MysqlCollection extends BaseDbCollection
   @configure 'MysqlCollection'
 
@@ -19,8 +17,9 @@ class MysqlCollection extends BaseDbCollection
         dateStrings: yes
       @pool = mysql.createPool par
       @pool.getConnectionPromise = denodeify(@pool.getConnection, @pool)
-    @pool.getConnectionPromise().then ((conn)->
+    @pool.getConnectionPromise().then ((conn)=>
       conn.queryPromise = denodeify(conn.query, conn)
+      @once 'destroy', -> conn.release()
       conn
     ), (err)=>
       throw @getError 'mysql connect', "#{err}"
@@ -38,8 +37,6 @@ class MysqlCollection extends BaseDbCollection
       for f in @initFuncs
         connProm = connProm.then f
     connProm.then (conn)=>
-      conn.queryPromise(query).then (result)->
-        conn.release() if autorelease
-        result
+      conn.queryPromise(query)
 
 module.exports = MysqlCollection

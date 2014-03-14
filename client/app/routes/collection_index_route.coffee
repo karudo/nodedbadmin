@@ -7,19 +7,27 @@ CollectionIndexRoute = Ember.Route.extend
     serverParams = {pageNum, pageSize}
     App.log 'before load', path, serverParams
     collection = App.Collection.getByPath(path)
-    Ember.RSVP.hash(
+    Ember.RSVP.hash
       allCount: collection.count()
-      content: collection.query(serverParams)
+      model: collection.query(serverParams)
       structure: collection.getStructure()
-    ).then (result)=>
+    .then (result)=>
       App.log 'after load', path, result.allCount
-      {content, allCount, structure} = result
-      content.setProperties
-        headers: structure.fields.map (f)-> f.name
+      {model, allCount, structure} = result
+      console.log structure
+      if structure.fields
+        headers = structure.fields.map (f)-> f.name
+      else
+        headers = _.union model.map((i)-> _.keys i)...
+      model.setProperties
+        headers: headers
         allCount: allCount
-        collectionPath: path
         pkFields: structure.pkFields
-      content
+        features: structure.features
+      {model, collectionPath: path}
+
+  setupController: (controller, props)->
+    controller.setProperties props
 
 
   actions:
@@ -27,7 +35,7 @@ CollectionIndexRoute = Ember.Route.extend
       @refresh()
     removeRow: (pk)->
       if confirm 'Delete?'
-        path = @get 'controller.content.collectionPath'
+        path = @get 'controller.collectionPath'
         App.Collection.getByPath(path).deleteByPk(pk).then =>
           @refresh()
 

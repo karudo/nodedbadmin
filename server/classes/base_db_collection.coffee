@@ -22,6 +22,9 @@ class BaseDbCollection extends BaseClass
   updateByPk: ->
     throw new Error "updateByPk must be redeclared"
 
+  _destroy: ->
+    @emit 'destroy'
+    @removeAllListeners()
 
 
 

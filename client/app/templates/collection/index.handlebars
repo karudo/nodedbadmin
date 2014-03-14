@@ -2,7 +2,7 @@
 <table class="list">
 <thead>
     <tr>
-        <th>&nbsp;</th>
+        {{#if model.pkFields}}<th>&nbsp;</th>{{/if}}
         {{#each col in model.headers}}
             <th>{{col}}</th>
         {{/each}}
@@ -11,12 +11,12 @@
 <tbody>
 {{#each row in acont}}
     <tr>
-        {{#if row.pk}}
+        {{#if model.pkFields}}{{#if row.pk}}
         <td>
-            {{#link-to 'collection.edit' (query-params pk=row.pk)}}<span class="glyphicon glyphicon-edit"></span>{{/link-to}}
-            <span class="glyphicon glyphicon-remove pointer" {{action 'removeRow' row.pk}}></span>
+            {{#if model.features.updateItem}}{{#link-to 'collection.edit' (query-params pk=row.pk)}}<span class="glyphicon glyphicon-edit"></span>{{/link-to}}{{/if}}
+            {{#if model.features.deleteItem}}<span class="glyphicon glyphicon-remove pointer" {{action 'removeRow' row.pk}}></span>{{/if}}
         </td>
-        {{/if}}
+        {{/if}}{{/if}}
         {{#each col in row}}
             <td>{{showValue col}}</td>
         {{/each}}
@@ -24,4 +24,6 @@
 {{/each}}
 </tbody>
 </table>
-{{#link-to 'collection.edit' (query-params pk=false)}}add new{{/link-to}}
+{{#if model.features.addItem}}
+    {{#link-to 'collection.edit' (query-params pk=false)}}add new{{/link-to}}
+{{/if}}

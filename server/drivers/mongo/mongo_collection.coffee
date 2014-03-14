@@ -9,7 +9,8 @@ connectPromise = denodeify(MongoClient.connect, MongoClient)
 class MongoCollection extends BaseDbCollection
   @configure 'MongoCollection'
   connect: (dbname = "")->
-    connectPromise "mongodb://#{@driver.pasture.host}:#{@driver.pasture.port}/#{dbname}"
+    url = "mongodb://#{@driver.pasture.host}:#{@driver.pasture.port}/#{dbname}"
+    connectPromise(url)
 
 
 module.exports = MongoCollection

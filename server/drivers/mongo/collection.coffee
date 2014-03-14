@@ -13,6 +13,7 @@ class MongoCollectionCollection extends MongoCollection
   query: ->
     @connect(@dbName).then (db)=>
       denodeifyExec(db.collectionNames, db).then (list)=>
+        #db.close()
         list.map (i)=>
           i.id = i.name.split("#{@dbName}.")[1]
           i.defPath = @getPathStr(i.id, 'documents')
