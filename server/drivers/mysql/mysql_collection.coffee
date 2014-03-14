@@ -15,6 +15,7 @@ class MysqlCollection extends BaseDbCollection
         user: @driver.pasture.user
         password: @driver.pasture.password
         dateStrings: yes
+      par.port = @driver.pasture.port if @driver.pasture.port
       @pool = mysql.createPool par
       @pool.getConnectionPromise = denodeify(@pool.getConnection, @pool)
     @pool.getConnectionPromise().then ((conn)=>

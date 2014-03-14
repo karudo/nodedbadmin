@@ -130,15 +130,17 @@ table.list {
         margin: @div-margin;
         max-width: calc(~"100%" - (@label-min-width + @div-margin*2 + @label-margin*2));
         width: calc(~"90%" - (@div-margin*2 + @label-margin*2));
-        input {
-          width: 99%;
+        input, select {
           font-size: 12px;
-          border-radius: 3px;
-          border-width: 1px;
           &[disabled] {
             cursor: not-allowed;
             background-color: #ddd;
           }
+        }
+        input {
+          width: 99%;
+          border-radius: 3px;
+          border-width: 1px;
         }
       }
     }

@@ -15,4 +15,5 @@ module.exports =
   Collection: require './classes/collection'
   CollectionItemClass: require './classes/collection_item_class'
   CollectionIndexView: require './views/collection_index_view'
-  EditView: require './views/edit_view'
+  EditDrvselectView: require './views/edit_drvselect_view'
+  EditTextView: require './views/edit_text_view'

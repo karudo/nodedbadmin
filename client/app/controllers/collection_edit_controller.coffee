@@ -21,11 +21,12 @@ module.exports = Ember.Controller.extend
     model = @get 'model'
     fields.map (v)=>
       v = _.clone v
+      #v.type is 'drvselect'
       FormRow.create _.extend v,
         name: v.name
         model: model
         valueBinding: "model.#{v.name}"
-        viewClass: App.EditView
+        viewClass: if v.type is 'drvselect' then App.EditDrvselectView else App.EditTextView
         domId: "inputEdit-#{v.name}"
         valueDidChanged: @valueDidChanged.bind @
   ).property 'fields.@each'

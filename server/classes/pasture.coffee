@@ -11,8 +11,8 @@ class Pasture extends BaseCollection
       canEdit: no
     name: 'string'
     driver:
-      type: 'string'
-      canEdit: no
+      type: 'drvselect'
+      #canEdit: no
       #type: 'foreignKey'
       #fkCollection: 'drivers'
       #fkFullPath: 'system#drivers'
@@ -27,6 +27,7 @@ class Pasture extends BaseCollection
       i.driverPath = "pastures:#{i.id}"
       i.defPath = "#{i.driverPath}#databases"
       i
+
 
   makePk: (idx, item)->
     item.driver = 'mysql' #today only mysql support
