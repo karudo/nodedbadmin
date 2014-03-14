@@ -1,6 +1,6 @@
 {
   "name": "nodedbadmin",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "nodeDBAdmin - mysql and mongodb (and other databases in future) database administration software",
   "main": "index.js",
   "scripts": {

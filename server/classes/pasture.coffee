@@ -30,7 +30,6 @@ class Pasture extends BaseCollection
 
 
   makePk: (idx, item)->
-    item.driver = 'mysql' #today only mysql support
     cur = chain(@_items).pluck(@pkFields).filter().map((v)-> intval v.replace('conn', '')).max().value()
     if cur < 0
       cur = 0

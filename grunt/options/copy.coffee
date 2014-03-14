@@ -21,7 +21,7 @@ module.exports =
         expand: yes
         flatten: yes
         cwd: "client/vendor/bower"
-        src: ["ember/ember.js", "jquery/jquery.js", "handlebars/handlebars.js", "lodash/dist/lodash.js"]
+        src: ["jquery/jquery.js", "handlebars/handlebars.js", "lodash/dist/lodash.js"]
         dest: "public"
       }
       {
