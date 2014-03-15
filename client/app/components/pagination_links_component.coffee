@@ -22,18 +22,23 @@ module.exports = Ember.Component.extend
     if pEnd < 1
       pEnd = 1
 
+    pStart -= needAddStart
+    pEnd += needAddEnd
+    pStart = 1 if pStart < 1
+    pEnd = pagesCount if pEnd > pagesCount
+
+
     pagesArray = for pageNum in [pStart..pEnd]
       {pageNum, active: pageNum==curPageNum}
-
     pPrev = no
     if pStart > 1
-      pPrev = curPageNum - 11
+      pPrev = pStart - 6
       if pPrev < 1
         pPrev = 1
 
     pNext = no
     if pEnd < pagesCount
-      pNext = curPageNum + 11
+      pNext = pEnd + 6
       if pNext > pagesCount
         pNext = pagesCount
 
