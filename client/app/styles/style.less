@@ -28,13 +28,36 @@ body {
 }
 
 .content {
-  padding: @top-menu-height+1px 0 0 @left-panel-width;
+  padding: @top-menu-height+1px 0 20px @left-panel-width;
 }
 
 .big-icons-panel {
   height: 50px;
   background: linear-gradient(to top, #969696, #d7d7d9);
   font-size: 11px;
+}
+
+.bottom-button-panel {
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+  position: fixed;
+  background: linear-gradient(to top, #dcdcdc, #f4f4f4);
+  border-top: 1px solid #a9a9ab;
+  a {
+    display: block;
+    float: left;
+    min-width: 26px;
+    height: 20px;
+    padding: 0 4px;
+    text-align: center;
+    border-right: 1px solid #a9a9ab;
+    color: #000000;
+    text-decoration: none;
+    span {
+      color: #2862AF;
+    }
+  }
 }
 
 table.list {

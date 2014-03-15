@@ -14,7 +14,7 @@
         {{#if model.pkFields}}{{#if row.pk}}
         <td>
             {{#if model.features.updateItem}}{{#link-to 'collection.edit' (query-params pk=row.pk)}}<span class="glyphicon glyphicon-edit"></span>{{/link-to}}{{/if}}
-            {{#if model.features.deleteItem}}<span class="glyphicon glyphicon-remove pointer" {{action 'removeRow' row.pk}}></span>{{/if}}
+            {{#if model.features.deleteItem}}<span class="glyphicon glyphicon-trash pointer" {{action 'removeRow' row.pk}}></span>{{/if}}
         </td>
         {{/if}}{{/if}}
         {{#each col in row}}
@@ -24,6 +24,10 @@
 {{/each}}
 </tbody>
 </table>
-{{#if model.features.addItem}}
-    {{#link-to 'collection.edit' (query-params pk=false)}}add new{{/link-to}}
-{{/if}}
+
+<div class="bottom-button-panel">
+    {{#if model.features.addItem}}
+        {{#link-to 'collection.edit' (query-params pk=false)}}<span class="glyphicon glyphicon-plus"></span> add{{/link-to}}
+    {{/if}}
+    <a href="" {{action 'reload'}}><span class="glyphicon glyphicon-repeat"></span> reload</a>
+</div>

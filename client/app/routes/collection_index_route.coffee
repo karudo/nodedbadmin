@@ -31,6 +31,8 @@ CollectionIndexRoute = Ember.Route.extend
 
 
   actions:
+    reload: ->
+      @refresh()
     queryParamsDidChange: ->
       @refresh()
     removeRow: (pk)->
