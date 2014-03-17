@@ -1,7 +1,5 @@
 module.exports = Ember.Component.extend
   classNames: ['pagination']
-  classNameBindings: ['kHide']
-  #showPaginator: yes
   pages: (->
     needAddStart = 0
     needAddEnd = 0
@@ -48,8 +46,8 @@ module.exports = Ember.Component.extend
     pagesArray
   ).property "pageSize", "allCount", 'curPageNum'
 
-  kHide: (->
+  isVisible: (->
     pages = @get 'pages'
-    pages.length <= 1
+    pages.length > 1
   ).property 'pages'
 
