@@ -26,8 +26,7 @@ if cli.loglevel
 
 server = new Server config
 server.start().then (->
-  host = if config.webserverHost is '0.0.0.0' then '<your hostname>' else config.webserverHost
-  server.logger.logAll 'info', "Started. Open http://#{host}:#{config.webserverPort} in your browser."
+  server.logger.logAll 'info', "Started. Open http://#{config.webserverHost}:#{config.webserverPort} in your browser."
 ), (err)->
   server.logger.error 'error start', err
 

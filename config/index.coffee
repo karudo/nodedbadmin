@@ -5,6 +5,6 @@ module.exports =
   configPath: path.join userHomeDir,'./.config/nodedbadmin'
   logLevel: 'info'
   webserverPort: 4242
-  webserverHost: '0.0.0.0'
+  webserverHost: '127.0.0.1'
 
 
