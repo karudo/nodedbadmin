@@ -66,12 +66,16 @@ table.list {
   border-top: 1px solid #7a7a7a;
   width: 100%;
   th {
+    cursor: pointer;
     text-align: left;
     background: linear-gradient(to top, #e7e7e7, #f4f4f4);
     border-right: @cell-border-style;
     border-bottom: @cell-border-style;
     padding-left: @cell-hor-padding;
     padding-right: @cell-hor-padding;
+    span.arrow {
+      float: right;
+    }
   }
   tbody {
     tr:nth-child(odd) {

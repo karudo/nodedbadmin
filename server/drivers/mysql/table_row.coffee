@@ -13,8 +13,15 @@ class MysqlTableRowCollection extends MysqlCollection
   query: (params)->
     pageNum = intval params.pageNum
     pageSize = intval params.pageSize
-    sql = "SELECT * FROM ?? LIMIT ?, ?"
-    @_query(sql, [@tableName, (pageNum-1)*pageSize, pageSize]).then ([result])-> result
+    vals = [@tableName]
+    sql = "SELECT * FROM ?? "
+    if params.sortBy
+      sql += " ORDER BY ?? " + if params.sortOrder and params.sortOrder is 'asc' then 'asc' else 'desc'
+      vals.push params.sortBy
+    sql += " LIMIT ?, ?"
+    vals.push (pageNum-1)*pageSize
+    vals.push pageSize
+    @_query(sql, vals).then ([result])-> result
 
 
   count: ()->

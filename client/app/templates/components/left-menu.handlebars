@@ -1,5 +1,5 @@
 {{#if items}}
     {{#each showItems}}
-        {{#link-to 'collection' linkToParam (query-params pageNum=1) active=active}}<i class="glyphicon glyphicon-th-large"></i> {{name}}{{/link-to}}
+        {{#link-to 'collection' linkToParam (query-params pageNum=1 sortBy=false sortOrder=false) active=active}}<i class="glyphicon glyphicon-th-large"></i> {{name}}{{/link-to}}
     {{/each}}
 {{/if}}

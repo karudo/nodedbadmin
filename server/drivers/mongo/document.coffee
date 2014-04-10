@@ -6,7 +6,7 @@ MongoCollection = require './mongo_collection'
 isValidObjectID = (str)->
   str = str + ''
   len = str.length
-  valid = no;
+  valid = no
   if len is 12 or len is 24
     valid = /^[0-9a-fA-F]+$/.test(str)
   valid
@@ -46,7 +46,12 @@ class MongoDocumentCollection extends MongoCollection
     pageNum = intval params.pageNum
     pageSize = intval params.pageSize
     @getCollection().then (coll)=>
-      cursor = coll.find {}, {skip: (pageNum-1)*pageSize, limit: pageSize}
+      cursor = coll.find {}
+      if params.sortBy
+        so = {}
+        so[params.sortBy] = if params.sortOrder and params.sortOrder is 'asc' then 1 else -1
+        cursor = cursor.sort so
+      cursor = cursor.skip((pageNum-1)*pageSize).limit(pageSize)
       denodeifyExec(cursor.toArray, cursor)
 
 

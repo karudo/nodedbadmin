@@ -4,7 +4,7 @@
     <tr>
         {{#if model.pkFields}}<th>&nbsp;</th>{{/if}}
         {{#each col in model.headers}}
-            <th>{{col}}</th>
+            <th {{action 'clickSort' col}}>{{col}} {{table-sort-order col=col sortBy=sortBy sortOrder=sortOrder}}</th>
         {{/each}}
     </tr>
 </thead>

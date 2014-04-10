@@ -1,10 +1,10 @@
 CollectionIndexRoute = Ember.Route.extend
-  model: ({pageNum, pageSize}, transition)->
+  model: ({pageNum, pageSize, sortBy, sortOrder}, transition)->
     @controllerFor('application').set 'lastCollectionIndexTransition', transition
     path = transition.params.collection.path
     path = decodeURIComponent(path)
     @controllerFor('application').set 'curCollPath', path
-    serverParams = {pageNum, pageSize}
+    serverParams = {pageNum, pageSize, sortBy, sortOrder}
     App.log 'before load', path, serverParams
     collection = App.Collection.getByPath(path)
     Ember.RSVP.hash

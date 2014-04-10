@@ -8,6 +8,7 @@ module.exports =
   ObjectValueComponent: require './components/object_value_component'
   PaginationLinksComponent: require './components/pagination_links_component'
   SelectDropDownComponent: require './components/select_drop_down_component'
+  TableSortOrderComponent: require './components/table_sort_order_component'
   ApplicationRoute: require './routes/application_route'
   CollectionEditRoute: require './routes/collection_edit_route'
   CollectionIndexRoute: require './routes/collection_index_route'
