@@ -18,7 +18,7 @@ module.exports = Ember.Component.extend
     pEnd = curPageNum + 5
     if pEnd > pagesCount
       needAddStart = pEnd - pagesCount
-      pEnd = pagesCount;
+      pEnd = pagesCount
 
     pStart -= needAddStart
     pEnd += needAddEnd
