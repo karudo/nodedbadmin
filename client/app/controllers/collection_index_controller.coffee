@@ -27,5 +27,5 @@ module.exports = Ember.ArrayController.extend
           sortOrder = if sortOrder is 'asc' then 'desc' else 'asc'
         else
           sortOrder = 'asc'
-      @transitionTo queryParams: {sortBy, sortOrder}
+      @transitionTo queryParams: {sortBy, sortOrder, pageNum: 1}
 

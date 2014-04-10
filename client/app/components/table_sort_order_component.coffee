@@ -4,12 +4,12 @@ module.exports = Ember.Component.extend
   classNameBindings: ['glyphiconSortByAttributes', 'glyphiconSortByAttributesAlt']
 
   glyphiconSortByAttributes: (->
-    @get('col') is @get('sortBy') and @get('sortOrder') is 'asc'
-  ).property 'col', 'sortBy', 'sortOrder'
+    @get('isVisible') and @get('sortOrder') is 'asc'
+  ).property 'isVisible', 'sortOrder'
 
   glyphiconSortByAttributesAlt: (->
-    @get('col') is @get('sortBy') and @get('sortOrder') is 'desc'
-  ).property 'col', 'sortBy', 'sortOrder'
+    @get('isVisible') and @get('sortOrder') is 'desc'
+  ).property 'isVisible', 'sortOrder'
 
   isVisible: (->
     @get('col') is @get('sortBy')
