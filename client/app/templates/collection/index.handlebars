@@ -1,10 +1,10 @@
-{{pagination-links curPageNum=pageNum pageSize=pageSize allCount=model.allCount sortBy=sortBy sortOrder=sortOrder}}
+{{pagination-links curPageNum=pageNum pageSize=pageSize allCount=model.allCount}}
 <table class="list">
 <thead>
     <tr>
         {{#if model.pkFields}}<th>&nbsp;</th>{{/if}}
-        {{#each col in model.headers}}
-            <th {{action 'clickSort' col}}>{{col}} {{table-sort-order col=col sortBy=sortBy sortOrder=sortOrder}}</th>
+        {{#each headers}}
+            <th {{bind-attr class="sorted"}} {{action 'clickSort' name}}>{{name}} {{table-sort-order col=name sortBy=controller.sortBy sortOrder=controller.sortOrder}}</th>
         {{/each}}
     </tr>
 </thead>

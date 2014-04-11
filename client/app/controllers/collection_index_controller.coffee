@@ -3,8 +3,8 @@ module.exports = Ember.ArrayController.extend
   queryParams: ['pageNum', 'pageSize', 'sortBy', 'sortOrder']
   pageNum: 1
   pageSize: 50
-  sortBy: no
-  sortOrder: no
+  sortBy: ''
+  sortOrder: ''
 
   acont: (->
     cont = @get 'content'
@@ -15,6 +15,14 @@ module.exports = Ember.ArrayController.extend
         content: (v[h] for h in headers)
         pk: v[pkFields]
   ).property 'content', 'content.headers', 'content.pkFields'
+
+  headers: (->
+    headers = @get 'content.headers'
+    curSortBy = @get('sortBy')
+    headers.map (v)->
+      name: v
+      sorted: v is curSortBy
+  ).property 'content.headers', 'sortBy'
 
   actions:
     clickSort: (sortBy)->

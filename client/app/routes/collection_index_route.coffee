@@ -14,7 +14,7 @@ CollectionIndexRoute = Ember.Route.extend
     .then (result)=>
       App.log 'after load', path, result.allCount
       {model, allCount, structure} = result
-      console.log structure
+      #console.log 'ASASASASASASAS', structure, model
       if structure.fields
         headers = structure.fields.map (f)-> f.name
       else

@@ -28,7 +28,7 @@ module.exports = Ember.Component.extend
     pEnd = 1 if pEnd < 1
 
     pagesArray = for pageNum in [pStart..pEnd]
-      {pageNum, sortBy, sortOrder, active: pageNum==curPageNum}
+      {pageNum, active: pageNum==curPageNum}
 
     pPrev = no
     if pStart > 1

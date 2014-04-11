@@ -1,15 +1,15 @@
 {{#if pFirst}}
-    {{link-to pFirst (query-params pageNum=pFirst sortBy=sortBy sortOrder=sortOrder)}}
+    {{link-to pFirst (query-params pageNum=pFirst)}}
 {{/if}}
 {{#if pPrev}}
-    {{#link-to (query-params pageNum=pPrev sortBy=sortBy sortOrder=sortOrder)}}<i class="glyphicon glyphicon-arrow-left"></i>{{/link-to}}
+    {{#link-to (query-params pageNum=pPrev)}}<i class="glyphicon glyphicon-arrow-left"></i>{{/link-to}}
 {{/if}}
 {{#each pages}}
-    {{link-to pageNum (query-params pageNum=pageNum sortBy=sortBy sortOrder=sortOrder) class=active}}
+    {{link-to pageNum (query-params pageNum=pageNum) class=active}}
 {{/each}}
 {{#if pNext}}
-    {{#link-to (query-params pageNum=pNext sortBy=sortBy sortOrder=sortOrder)}}<i class="glyphicon glyphicon-arrow-right"></i>{{/link-to}}
+    {{#link-to (query-params pageNum=pNext)}}<i class="glyphicon glyphicon-arrow-right"></i>{{/link-to}}
 {{/if}}
 {{#if pLast}}
-    {{link-to pLast (query-params pageNum=pLast sortBy=sortBy sortOrder=sortOrder)}}
+    {{link-to pLast (query-params pageNum=pLast)}}
 {{/if}}
