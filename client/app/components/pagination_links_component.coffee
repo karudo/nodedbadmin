@@ -5,8 +5,6 @@ module.exports = Ember.Component.extend
     needAddEnd = 0
     curPageNum = Number @get('curPageNum')
     pageSize = Number @get("pageSize")
-    sortBy = @get 'sortBy'
-    sortOrder = @get 'sortOrder'
     l = Number @get("allCount")
     pagesCount = Math.ceil(l / pageSize)
 
@@ -44,7 +42,6 @@ module.exports = Ember.Component.extend
     pLast = if pEnd < pagesCount then pagesCount else no
 
     @setProperties {pPrev, pNext, pFirst, pLast}
-
     pagesArray
   ).property "pageSize", "allCount", 'curPageNum'
 

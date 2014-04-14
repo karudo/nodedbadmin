@@ -1,15 +1,15 @@
 {{#if pFirst}}
-    {{link-to pFirst (query-params pageNum=pFirst)}}
+    {{link-to pFirst (query-params pageNum=pFirst sortBy=controller.sortBy sortOrder=controller.sortOrder)}}
 {{/if}}
 {{#if pPrev}}
-    {{#link-to (query-params pageNum=pPrev)}}<i class="glyphicon glyphicon-arrow-left"></i>{{/link-to}}
+    {{#link-to (query-params pageNum=pPrev sortBy=controller.sortBy sortOrder=controller.sortOrder)}}<i class="glyphicon glyphicon-arrow-left"></i>{{/link-to}}
 {{/if}}
 {{#each pages}}
-    {{link-to pageNum (query-params pageNum=pageNum) class=active}}
+    {{link-to pageNum (query-params pageNum=pageNum sortBy=controller.sortBy sortOrder=controller.sortOrder) class=active}}
 {{/each}}
 {{#if pNext}}
-    {{#link-to (query-params pageNum=pNext)}}<i class="glyphicon glyphicon-arrow-right"></i>{{/link-to}}
+    {{#link-to (query-params pageNum=pNext sortBy=controller.sortBy sortOrder=controller.sortOrder)}}<i class="glyphicon glyphicon-arrow-right"></i>{{/link-to}}
 {{/if}}
 {{#if pLast}}
-    {{link-to pLast (query-params pageNum=pLast)}}
+    {{link-to pLast (query-params pageNum=pLast  sortBy=controller.sortBy sortOrder=controller.sortOrder)}}
 {{/if}}
