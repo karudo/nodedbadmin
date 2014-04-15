@@ -4,7 +4,7 @@
     <tr>
         {{#if model.pkFields}}<th>&nbsp;</th>{{/if}}
         {{#each headers}}
-            <th {{bind-attr class="sorted"}} {{action 'clickSort' name}}>{{name}} {{table-sort-order col=name sortBy=controller.sortBy sortOrder=controller.sortOrder}}</th>
+            <th {{bind-attr class='sorted'}} {{action 'clickSort' name}}>{{name}} {{table-sort-order col=name sortBy=controller.sortBy sortOrder=controller.sortOrder}}</th>
         {{/each}}
     </tr>
 </thead>
@@ -17,9 +17,11 @@
             {{#if model.features.deleteItem}}<span class="glyphicon glyphicon-trash pointer" {{action 'removeRow' row.pk}}></span>{{/if}}
         </td>
         {{/if}}{{/if}}
-        {{#each col in row}}
-            <td>{{showValue col}}</td>
-        {{/each}}
+        {{#group}}
+            {{#each row}}
+                <td>{{showValue this}}</td>
+            {{/each}}
+        {{/group}}
     </tr>
 {{/each}}
 </tbody>
