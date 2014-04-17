@@ -4,7 +4,7 @@
     <tr>
         {{#if model.pkFields}}<th>&nbsp;</th>{{/if}}
         {{#each headers}}
-            <th {{bind-attr class='sorted'}} {{action 'clickSort' name}}>{{name}} {{table-sort-order col=name sortBy=controller.sortBy sortOrder=controller.sortOrder}}</th>
+            <th {{bind-attr class='sorted'}} {{action 'clickSort' name}}>{{name}} {{table-sort-order col=name sort=controller.sort}}</th>
         {{/each}}
     </tr>
 </thead>

@@ -1,10 +1,17 @@
+{isArray} = _
 CollectionIndexRoute = Ember.Route.extend
-  model: ({pageNum, pageSize, sortBy, sortOrder}, transition)->
+  model: ({pageNum, pageSize, sort}, transition)->
     @controllerFor('application').set 'lastCollectionIndexTransition', transition
     path = transition.params.collection.path
     path = decodeURIComponent(path)
     @controllerFor('application').set 'curCollPath', path
-    serverParams = {pageNum, pageSize, sortBy, sortOrder}
+    sort = sort.map (v)->
+      unless isArray v
+        v = v.split ','
+      if v.length > 1
+        v[1] *= 1
+      v
+    serverParams = {pageNum, pageSize, sort}
     App.log 'before load', path, serverParams
     collection = App.Collection.getByPath(path)
     Ember.RSVP.hash

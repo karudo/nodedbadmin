@@ -1,5 +1,5 @@
 MysqlCollection = require './mysql_collection'
-{intval} = nodedbadmin.utils._
+{intval, isArray} = nodedbadmin.utils._
 
 class MysqlTableRowCollection extends MysqlCollection
   @configure 'MysqlTableRowCollection'
@@ -15,9 +15,10 @@ class MysqlTableRowCollection extends MysqlCollection
     pageSize = intval params.pageSize
     vals = [@tableName]
     sql = "SELECT * FROM ?? "
-    if params.sortBy
-      sql += " ORDER BY ?? " + if params.sortOrder and params.sortOrder is 'asc' then 'asc' else 'desc'
-      vals.push params.sortBy
+    if isArray(params.sort) and params.sort.length
+      [sortBy, sortOrder] = params.sort[0]
+      sql += " ORDER BY ?? " + if sortOrder is -1 then 'desc' else 'asc'
+      vals.push sortBy
     sql += " LIMIT ?, ?"
     vals.push (pageNum-1)*pageSize
     vals.push pageSize

@@ -1,6 +1,6 @@
 MongoCollection = require './mongo_collection'
 {ObjectID} = require('mongodb')
-{intval, keys} = nodedbadmin.utils._
+{intval, keys, isArray} = nodedbadmin.utils._
 {denodeifyExec} = nodedbadmin.promise
 
 isValidObjectID = (str)->
@@ -47,9 +47,10 @@ class MongoDocumentCollection extends MongoCollection
     pageSize = intval params.pageSize
     @getCollection().then (coll)=>
       cursor = coll.find {}
-      if params.sortBy
+      if isArray(params.sort) and params.sort.length
         so = {}
-        so[params.sortBy] = if params.sortOrder and params.sortOrder is 'asc' then 1 else -1
+        [sortBy, sortOrder] = params.sort[0]
+        so[sortBy] = sortOrder
         cursor = cursor.sort so
       cursor = cursor.skip((pageNum-1)*pageSize).limit(pageSize)
       denodeifyExec(cursor.toArray, cursor)

@@ -1,10 +1,9 @@
-
+{isArray} = _
 module.exports = Ember.ArrayController.extend
-  queryParams: ['pageNum', 'pageSize', 'sortBy', 'sortOrder']
+  queryParams: ['pageNum', 'pageSize', 'sort']
   pageNum: 1
   pageSize: 50
-  sortBy: ''
-  sortOrder: ''
+  sort: []
 
   acont: (->
     cont = @get 'content'
@@ -17,23 +16,30 @@ module.exports = Ember.ArrayController.extend
   ).property 'content', 'content.headers', 'content.pkFields'
 
   headers: (->
+    curSortBy = no
     headers = @get 'content.headers'
-    curSortBy = @get('sortBy')
+    curSort = @get 'sort'
+    if curSort.length
+      unless isArray curSort[0]
+        curSort[0] = curSort[0].split ','
+      [curSortBy] = curSort[0]
     headers.map (v)->
       name: v
       sorted: v is curSortBy
-  ).property 'content.headers', 'sortBy'
+  ).property 'content.headers', 'sort'
 
   actions:
     clickSort: (sortBy)->
-      curSortBy = @get('sortBy')
-      sortOrder = @get('sortOrder')
-      if sortOrder is no
-        sortOrder = 'asc'
-      else
-        if sortBy is curSortBy
-          sortOrder = if sortOrder is 'asc' then 'desc' else 'asc'
+      curSort = @get 'sort'
+      if curSort.length
+        unless isArray curSort[0]
+          curSort[0] = curSort[0].split ','
+        [curSortBy, curSortDir] = curSort[0]
+        if curSortBy is sortBy
+          sort = [[sortBy, -1 * curSortDir]]
         else
-          sortOrder = 'asc'
-      @transitionTo queryParams: {sortBy, sortOrder, pageNum: 1}
+          sort = [[sortBy, 1]]
+      else
+        sort = [[sortBy, 1]]
+      @transitionTo queryParams: {sort, pageNum: 1}
 
