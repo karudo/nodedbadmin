@@ -2,7 +2,7 @@
   "name": "nodedbadmin",
   "dependencies": {
     "bootstrap": "~3.1.1",
-    "ember": "~1.5.0",
+    "ember": "~1.5.1",
     "lodash": "~2.4.1"
   }
 }

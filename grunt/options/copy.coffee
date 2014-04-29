@@ -27,7 +27,7 @@ module.exports =
       {
         expand: yes
         cwd: "client/vendor"
-        src: "ember150queryparams.js"
+        src: "emberqueryparams.js"
         dest: "public"
       }
       {
