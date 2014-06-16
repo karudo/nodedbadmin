@@ -105,9 +105,9 @@ class Server extends BaseClass
         driver.getCollection(collPath).then (collection)=>
           @logger.debug "#{nc} driver.getCollection #{collPath} ok"
           throw @getError("no method '#{method}' in collection #{fullCollPath}") unless collection[method]
-          collection[method](params...).then (r)->
-            collection._destroy()
-            r
+          collection[method](params...) #.then (r)->
+          #  collection._destroy()
+          #  r
     else if collNS is 'system' and @_collections[collPath]
       @_collections[collPath][method] params...
     else
