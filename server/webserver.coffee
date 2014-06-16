@@ -14,22 +14,22 @@ publicdir = join __dirname, '../public'
 class Server extends BaseClass
   @start: (port, host)->
     @app = app = express()
-    app.configure ->
-      app.use express.bodyParser()
-      app.use express.methodOverride()
-      app.use app.router
-      app.use express.errorHandler { dumpExceptions: yes, showStack: yes }
+    #app.configure ->
+    #  app.use express.bodyParser()
+    #  app.use express.methodOverride()
+    #  app.use app.router
+    #  app.use express.errorHandler { dumpExceptions: yes, showStack: yes }
     app.get '/', (req, res)-> res.sendfile join publicdir, 'index.html'
     app.use '/static', express.static publicdir
 
-    @server = server = http.createServer(app)
-    @sio = sio = socket.listen(server)
-    sio.set 'log level', 1
+    @server = http.createServer(app)
+    @sio = socket.listen(@server)
+    @sio.set 'log level', 1
 
     defer = promise.defer()
 
-    listenObj = server.listen port, host
-    listenObj.on 'listening', -> defer.resolve(new Socket sio)
+    listenObj = @server.listen port, host
+    listenObj.on 'listening', => defer.resolve(new Socket @sio)
     listenObj.on 'error', -> defer.reject("can't start webserver")
 
     defer.promise
