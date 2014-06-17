@@ -6,7 +6,7 @@ socket = require("socket.io")
 express = require("express")
 http = require("http")
 
-promise = require './promise'
+{Promise} = require './promise'
 
 publicdir = join __dirname, '../public'
 
@@ -24,15 +24,13 @@ class Server extends BaseClass
 
     @server = http.createServer(app)
     @sio = socket.listen(@server)
-    @sio.set 'log level', 1
-
-    defer = promise.defer()
+    #@sio.set 'log level', 1
 
     listenObj = @server.listen port, host
-    listenObj.on 'listening', => defer.resolve(new Socket @sio)
-    listenObj.on 'error', -> defer.reject("can't start webserver")
 
-    defer.promise
+    new Promise (resolve, reject)=>
+      listenObj.on 'listening', => resolve(new Socket @sio)
+      listenObj.on 'error', -> reject("can't start webserver")
 
 
 class Socket extends BaseClass
